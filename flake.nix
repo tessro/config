@@ -5,6 +5,10 @@
   };
 
   outputs = { self, nixpkgs, nixos-wsl, ... }: {
+    nixosModules = {
+      core = ./modules/core.nix;
+    };
+
     nixosConfigurations = {
       wsl = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
