@@ -3,6 +3,7 @@
 {
   imports = [
     ../../modules/core.nix
+    ../../modules/hardware-observability.nix
     ../../modules/virtualization.nix
   ];
 
