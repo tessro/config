@@ -3,6 +3,7 @@
 {
   imports = [
     ../../modules/core.nix
+    ../../modules/virtualization.nix
   ];
 
   hardware.facter.reportPath = ./facter.json;
@@ -43,7 +44,11 @@
 
   users.users.tess = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = [
+      "wheel"
+      "libvirtd"
+      "kvm"
+    ];
     hashedPassword = "!";
     shell = pkgs.zsh;
 
