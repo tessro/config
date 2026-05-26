@@ -7,6 +7,8 @@
         qemu
         libvirt
         virtiofsd
+        virt-manager
+        virt-viewer
       ];
     };
   };
