@@ -2,7 +2,11 @@
   tessro.core = {
     nixos = { pkgs, ... }: {
       environment.systemPackages = with pkgs; [
-        # core
+        # monitoring
+        htop
+        sysstat
+
+        # net
         curl
         git
         wget
@@ -14,7 +18,6 @@
 
         # shell
         fastfetch
-        htop
         zellij
         zsh
 
