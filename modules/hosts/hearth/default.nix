@@ -5,6 +5,7 @@
       tessro.nix
       tessro.ups
       tessro.bootable
+      tessro.tailscale
       tessro.virtualization
     ];
 
