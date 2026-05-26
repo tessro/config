@@ -3,6 +3,7 @@
     includes = [
       tessro.core
       tessro.nix
+      tessro.ups
       tessro.bootable
       tessro.virtualization
     ];
