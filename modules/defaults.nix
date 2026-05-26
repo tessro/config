@@ -5,6 +5,8 @@
       den.batteries.hostname
     ];
 
+    nixos.nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
     # 2026.11+ default
     nixos.boot.zfs.forceImportRoot = false;
 
