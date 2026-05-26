@@ -14,9 +14,11 @@
 
         settings = {
           PasswordAuthentication = false;
-          PermitRootLogin = lib.mkDefault "prohibit-password";
+          PermitRootLogin = lib.mkDefault "no";
         };
       };
+
+      time.timeZone = "America/Los_Angeles";
 
       users.users.root.openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAgixMp9vffZXwMH/oHanhXgis2yn6xLhA4vUPR4924N"

@@ -13,8 +13,6 @@
 
       networking.hostId = "c84fed97";
       networking.hostName = "hearth";
-      time.timeZone = "America/Los_Angeles";
-
       boot = {
         loader = {
           systemd-boot.enable = true;
@@ -68,8 +66,6 @@
 
       services.zfs.autoScrub.enable = true;
       services.zfs.trim.enable = true;
-
-      system.stateVersion = "25.11";
     };
   };
 }

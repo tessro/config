@@ -16,6 +16,6 @@
    }).config;
   in
   {
-    inherit (den.flake) nixosConfigurations darwinConfigurations;
+    inherit (den.flake) nixosConfigurations;
   };
 }
