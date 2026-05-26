@@ -10,6 +10,11 @@
         virt-manager
         virt-viewer
       ];
+
+      networking.firewall.interfaces.virbr0 = {
+        allowedUDPPorts = [ 53 67 ];
+        allowedTCPPorts = [ 53 ];
+      };
     };
   };
 }
