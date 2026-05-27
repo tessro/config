@@ -3,6 +3,7 @@
     includes = [
       den.provides.define-user
       den.provides.hostname
+      den.provides.mutual-provider
       den.provides.inputs'
       den.provides.self'
     ];
