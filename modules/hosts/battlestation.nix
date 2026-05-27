@@ -8,7 +8,7 @@
     nixos = { pkgs, ... }: {
       boot.loader.grub.enable = false;
 
-      filesystems."/" = {
+      fileSystems."/" = {
         device = "/dev/noroot";
         fsType = "auto";
       };
