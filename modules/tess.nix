@@ -1,5 +1,5 @@
 { den, ... }: {
-  den.aspects.tux = {
+  den.aspects.tess = {
     includes = [
       den.batteries.define-user
       den.batteries.primary-user
