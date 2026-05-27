@@ -4,9 +4,13 @@
       (den.provides.unfree [ "claude" ])
     ];
 
-    homeManager = { inputs', ... }: {
-      home.packages = [
+    homeManager = { inputs', pkgs, ... }: {
+      home.packages = with pkgs; [
         inputs'.nix-claude-code.packages.default
+
+        # Claude sandbox
+        bubblewrap
+        socat
       ];
     };
   };
