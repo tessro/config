@@ -22,8 +22,10 @@
         zsh
 
         # development
+        fd
         fzf
         gh
+        jq
         neovim
         ripgrep
       ];
