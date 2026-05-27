@@ -1,4 +1,4 @@
-{
+rec {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     darwin.url = "github:nix-darwin/nix-darwin";
@@ -9,14 +9,5 @@
     den.url = "github:denful/den";
   };
 
-  outputs = inputs:
-  let
-   den = (inputs.nixpkgs.lib.evalModules {
-     modules = [ (inputs.import-tree ./modules) ];
-     specialArgs.inputs = inputs;
-   }).config;
-  in
-  {
-    inherit (den.flake) nixosConfigurations;
-  };
+  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 }
