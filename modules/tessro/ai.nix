@@ -7,6 +7,7 @@
     homeManager = { inputs', pkgs, ... }: {
       home.packages = with pkgs; [
         inputs'.nix-claude-code.packages.default
+        inputs'.codex-cli-nix.packages.default
 
         # Claude sandbox
         bubblewrap

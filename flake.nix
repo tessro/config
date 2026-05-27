@@ -10,7 +10,7 @@
 
     # AI
     nix-claude-code.url = "github:ryoppippi/nix-claude-code";
-    codex.url = "github:openai/codex";
+    codex-cli-nix.url = "github:sadjow/codex-cli-nix";
   };
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
