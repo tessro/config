@@ -3,6 +3,7 @@
     includes = [
       tessro.core
       tessro.nix
+      tessro.ai
       tessro.ups
       tessro.bootable
       tessro.tailscale
