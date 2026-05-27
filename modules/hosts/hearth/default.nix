@@ -9,15 +9,41 @@
       tessro.virtualization
     ];
 
-    nixos = { pkgs, ... }: {
+    nixos = { pkgs, ... }: let
+      syncEfiFallback = ''
+        ${pkgs.coreutils}/bin/mkdir -p /boot-fallback
+
+        mounted=0
+        if ! ${pkgs.util-linux}/bin/mountpoint -q /boot-fallback; then
+          ${pkgs.util-linux}/bin/mount /boot-fallback
+          mounted=1
+        fi
+
+        cleanup() {
+          if [ "$mounted" = 1 ]; then
+            ${pkgs.util-linux}/bin/umount /boot-fallback
+          fi
+        }
+        trap cleanup EXIT
+
+        ${pkgs.rsync}/bin/rsync -a --delete /boot/ /boot-fallback/
+      '';
+    in {
       hardware.facter.reportPath = ./facter.json;
 
       networking.hostId = "c84fed97";
       networking.hostName = "hearth";
       boot = {
         loader = {
-          systemd-boot.enable = true;
-          efi.canTouchEfiVariables = true;
+          systemd-boot = {
+            enable = true;
+            extraInstallCommands = syncEfiFallback;
+          };
+
+          efi = {
+            canTouchEfiVariables = true;
+            efiSysMountPoint = "/boot";
+          };
         };
 
         supportedFilesystems = [ "zfs" ];
@@ -39,6 +65,21 @@
           fsType = "vfat";
           options = [ "fmask=0022" "dmask=0022" ];
         };
+
+        "/boot-fallback" = {
+          device = "/dev/disk/by-uuid/8AB3-FA98";
+          fsType = "vfat";
+          options = [ "noauto" "fmask=0022" "dmask=0022" ];
+        };
+      };
+
+      systemd.services.sync-efi-fallback = {
+        description = "Sync fallback EFI system partition";
+        wantedBy = [ "multi-user.target" ];
+        after = [ "boot.mount" ];
+        requires = [ "boot.mount" ];
+        serviceConfig.Type = "oneshot";
+        script = syncEfiFallback;
       };
 
       users.users.tess = {
