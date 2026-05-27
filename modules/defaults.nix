@@ -1,8 +1,8 @@
 { den, lib, ... }: {
   den.default = {
     includes = [
-      den.batteries.define-user
-      den.batteries.hostname
+      den.provides.define-user
+      den.provides.hostname
       den.provides.inputs'
       den.provides.self'
     ];
