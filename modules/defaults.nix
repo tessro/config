@@ -3,8 +3,8 @@
     includes = [
       den.batteries.define-user
       den.batteries.hostname
-      # den.provides.inputs'
-      # den.provides.self'
+      den.provides.inputs'
+      den.provides.self'
     ];
 
     nixos.nix.settings.experimental-features = [ "nix-command" "flakes" ];
