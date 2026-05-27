@@ -7,7 +7,10 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:denful/import-tree";
     den.url = "github:denful/den";
+
+    # AI
     nix-claude-code.url = "github:ryoppippi/nix-claude-code";
+    codex.url = "github:openai/codex";
   };
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
