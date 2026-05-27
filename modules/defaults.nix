@@ -1,4 +1,4 @@
-{ den, lib, ... }: {
+{ den, lib, tessro, ... }: {
   den.default = {
     includes = [
       den.provides.define-user
@@ -6,9 +6,9 @@
       den.provides.mutual-provider
       den.provides.inputs'
       den.provides.self'
-    ];
 
-    nixos.nix.settings.experimental-features = [ "nix-command" "flakes" ];
+      tessro.nix-settings
+    ];
 
     # 2026.11+ default
     nixos.boot.zfs.forceImportRoot = false;
