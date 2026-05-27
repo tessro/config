@@ -6,6 +6,13 @@
     ];
 
     nixos = { pkgs, ... }: {
+      boot.loader.grub.enable = false;
+
+      filesystems."/" = {
+        device = "/dev/noroot";
+        fsType = "auto";
+      };
+
       wsl.defaultUser = "tess";
 
       users.users.tess = {
