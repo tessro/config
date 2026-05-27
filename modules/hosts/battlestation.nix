@@ -5,7 +5,7 @@
       tessro.nix
     ];
 
-    nixos = { pkgs, ... }: {
+    nixos = {
       boot.loader.grub.enable = false;
 
       fileSystems."/" = {
@@ -19,7 +19,6 @@
         uid = 1100;
         isNormalUser = true;
         extraGroups = [ "wheel" ];
-        shell = pkgs.zsh;
       };
     };
   };
