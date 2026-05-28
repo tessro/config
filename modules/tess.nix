@@ -7,6 +7,12 @@
       tessro.ai
     ];
 
+    homeManager = { pkgs, ... }: {
+      home.packages = with pkgs; [
+        devenv
+      ];
+    };
+
     os = { pkgs, ... }: {
       users.users.tess.shell = pkgs.zsh;
       users.users.tess.openssh.authorizedKeys.keys = [
