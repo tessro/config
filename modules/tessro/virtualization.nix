@@ -4,6 +4,7 @@
       virtualisation.libvirtd.enable = true;
 
       environment.systemPackages = with pkgs; [
+        cloud-hypervisor
         qemu
         libvirt
         virtiofsd
