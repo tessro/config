@@ -7,6 +7,7 @@
       tessro.bootable
       tessro.tailscale
       tessro.virtualization
+      tessro.hearth
     ];
 
     nixos = { pkgs, ... }: let
