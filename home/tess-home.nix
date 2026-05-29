@@ -8,6 +8,7 @@
 
   home.packages = with pkgs; [
     devenv
+    gh
     nh
 
     inputs.nix-claude-code.packages.${pkgs.stdenv.hostPlatform.system}.default
