@@ -6,6 +6,8 @@
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:denful/import-tree";
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     den.url = "github:denful/den";
 
     # AI
