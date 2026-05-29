@@ -1,4 +1,4 @@
-{ lib, tessro, ... }: {
+{ tessro, ... }: {
   tessro.hearth = {
     nixos = { pkgs, ... }: {
       environment.systemPackages = with pkgs; [
@@ -30,12 +30,31 @@
         "d /run/hearth/vsock            0750 hearth hearth -"
       ];
 
-      # br0 carries all VM traffic. Day 1: upstream router does DHCP.
-      # The host config must attach a physical interface, e.g.:
-      #   networking.bridges.br0.interfaces = [ "enp1s0" ];
-      networking.bridges.br0.interfaces = lib.mkDefault [ ];
-      networking.interfaces.br0.useDHCP = true;
-      networking.firewall.trustedInterfaces = [ "br0" ];
+      # hearth0 is a NAT bridge for VM traffic: host = 10.26.8.1/22,
+      # dnsmasq hands out the rest of 10.26.8.0/22, and the host
+      # masquerades out via the per-host externalInterface.
+      networking.bridges.hearth0.interfaces = [ ];
+      networking.interfaces.hearth0.ipv4.addresses = [{
+        address = "10.26.8.1";
+        prefixLength = 22;
+      }];
+      networking.firewall.trustedInterfaces = [ "hearth0" ];
+      networking.nat = {
+        enable = true;
+        internalInterfaces = [ "hearth0" ];
+      };
+
+      services.dnsmasq = {
+        enable = true;
+        settings = {
+          interface = "hearth0";
+          bind-interfaces = true;
+          dhcp-range = "10.26.8.2,10.26.11.254,255.255.252.0,12h";
+          dhcp-authoritative = true;
+          domain-needed = true;
+          bogus-priv = true;
+        };
+      };
     };
   };
 }

@@ -34,6 +34,7 @@
 
       networking.hostId = "c84fed97";
       networking.hostName = "hearth";
+      networking.nat.externalInterface = "enp4s0";
       boot = {
         loader = {
           systemd-boot = {
