@@ -9,6 +9,7 @@
     zellij
 
     # development
+    cmake
     fd
     fzf
     jq
