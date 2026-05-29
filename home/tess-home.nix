@@ -4,6 +4,8 @@
 #   - as a NixOS home-manager module via ../home/tess.nix (the Linux hosts)
 #   - as a standalone home-manager config via ../flake/home.nix (zephyr, darwin)
 { pkgs, lib, config, inputs, ... }: {
+  imports = [ ./devtools.nix ];
+
   home.stateVersion = lib.mkDefault "25.11";
 
   home.packages = with pkgs; [

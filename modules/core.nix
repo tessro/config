@@ -15,16 +15,7 @@
     gnumake
 
     # shell
-    fastfetch
-    zellij
     zsh
-
-    # development
-    fd
-    fzf
-    jq
-    neovim
-    ripgrep
   ];
 
   programs.zsh.enable = true;
