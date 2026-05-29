@@ -6,6 +6,16 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    nix-darwin.url = "github:nix-darwin/nix-darwin";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Private assets (licensed fonts, etc.) — not redistributable, kept out of
+    # this public repo. Plain source tree, not a flake.
+    config-private = {
+      url = "git+ssh://git@github.com/tessro/config-private.git";
+      flake = false;
+    };
+
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -24,6 +34,7 @@
     imports = [
       ./flake/hosts.nix
       ./flake/home.nix
+      ./flake/darwin.nix
     ];
   };
 }
