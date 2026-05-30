@@ -28,7 +28,6 @@ reference it!
    git clone https://github.com/tessro/config.git ~/repos/config
    cd ~/repos/config
    nix run nix-darwin -- switch --flake .#zephyr
-   home-manager switch --flake .#tess
    ```
 
 ## License

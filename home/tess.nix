@@ -1,9 +1,11 @@
 { pkgs, lib, inputs, ... }: {
-  # claude-code and codex are unfree.
+  # Unfree packages tess's home pulls in: claude-code + codex (CLIs) and
+  # berkeley-mono (the font).
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
       "claude-code"
       "codex"
+      "berkeley-mono"
     ];
 
   users.users.tess = {
