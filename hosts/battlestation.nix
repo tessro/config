@@ -1,4 +1,13 @@
-{ ... }: {
+{ inputs, ... }: {
+  imports = [
+    inputs.nixos-wsl.nixosModules.default
+    ../modules/linux
+
+    ../modules/core.nix
+    ../modules/nix.nix
+    ../modules/users/tess.nix
+  ];
+
   wsl.enable = true;
   wsl.defaultUser = "tess";
 

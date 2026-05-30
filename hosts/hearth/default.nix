@@ -18,6 +18,18 @@
     ${pkgs.rsync}/bin/rsync -a --delete /boot/ /boot-fallback/
   '';
 in {
+  imports = [
+    nixos-facter-modules.nixosModules.facter
+    ../modules/core.nix
+    ../modules/nix.nix
+    ../modules/ups.nix
+    ../modules/bootable.nix
+    ../modules/tailscale.nix
+    ../modules/virtualization.nix
+    ../modules/hearth.nix
+    ../modules/users/tess.nix
+  ];
+
   facter.reportPath = ./facter.json;
 
   networking.hostId = "c84fed97";

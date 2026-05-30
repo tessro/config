@@ -10,7 +10,6 @@
     wget
 
     # build tools
-    cmake
     gcc
     gnumake
 

@@ -30,11 +30,8 @@
   };
 
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-    systems = [ "x86_64-linux" ];
     imports = [
       ./flake/hosts.nix
-      ./flake/home.nix
-      ./flake/darwin.nix
     ];
   };
 }

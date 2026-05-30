@@ -1,14 +1,9 @@
-{ pkgs, lib, inputs, ... }: {
-  # Unfree packages tess's home pulls in: claude-code + codex (CLIs) and
-  # berkeley-mono (the font).
-  nixpkgs.config.allowUnfreePredicate = pkg:
-    builtins.elem (lib.getName pkg) [
-      "claude-code"
-      "codex"
-      "berkeley-mono"
-    ];
+{ inputs, ... }: {
+  imports = [
+    inputs.home-manager.nixosModules.default
+  ];
 
-  users.users.tess = {
+  nixos.users.users.tess = {
     isNormalUser = true;
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [
@@ -20,6 +15,4 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIj76DVPyrEs1z69PWwxudQWYYSTqjoSNMi4NVlDr1kY"
     ];
   };
-
-  home-manager.users.tess = import ./tess-home.nix;
 }
