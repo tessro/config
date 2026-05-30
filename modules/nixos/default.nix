@@ -1,9 +1,9 @@
-{ inputs, ... }: {
+{ inputs, pkgs, ... }: {
   imports = [
     inputs.home-manager.nixosModules.default
   ];
 
-  nixos.users.users.tess = {
+  users.users.tess = {
     isNormalUser = true;
     shell = pkgs.zsh;
     openssh.authorizedKeys.keys = [

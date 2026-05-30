@@ -5,7 +5,6 @@ let
     nixpkgs
     nix-darwin
     home-manager
-    nixos-facter-modules
     ;
 
   # Modules every host shares.

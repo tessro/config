@@ -1,4 +1,4 @@
-{ pkgs, ... }: let
+{ inputs, pkgs, ... }: let
   syncEfiFallback = ''
     ${pkgs.coreutils}/bin/mkdir -p /boot-fallback
 
@@ -19,15 +19,16 @@
   '';
 in {
   imports = [
-    nixos-facter-modules.nixosModules.facter
-    ../modules/core.nix
-    ../modules/nix.nix
-    ../modules/ups.nix
-    ../modules/bootable.nix
-    ../modules/tailscale.nix
-    ../modules/virtualization.nix
-    ../modules/hearth.nix
-    ../modules/users/tess.nix
+    inputs.nixos-facter-modules.nixosModules.facter
+    ../../modules/nixos
+    ../../modules/core.nix
+    ../../modules/nix.nix
+    ../../modules/ups.nix
+    ../../modules/bootable.nix
+    ../../modules/tailscale.nix
+    ../../modules/virtualization.nix
+    ../../modules/hearth.nix
+    ../../modules/users/tess.nix
   ];
 
   facter.reportPath = ./facter.json;
