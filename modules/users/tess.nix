@@ -1,13 +1,6 @@
 { pkgs, lib, inputs, ... }:
   let username = "tess";
       homeDirectory = if pkgs.stdenv.isDarwin then "/Users/tess" else "/home/tess"; in {
-  nixpkgs.config.allowUnfreePredicate = pkg:
-    builtins.elem (lib.getName pkg) [
-      "claude-code"
-      "codex"
-      "berkeley-mono"
-    ];
-
   users.users.tess.home = homeDirectory;
 
   home-manager.users.tess = {

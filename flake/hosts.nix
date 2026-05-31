@@ -10,6 +10,7 @@ let
   # Modules every host shares.
   common = name: system: [
     ../modules/nix-settings.nix
+    ../modules/unfree.nix
     {
       networking.hostName = lib.mkDefault name;
       nixpkgs.hostPlatform = system;
