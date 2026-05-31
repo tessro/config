@@ -9,7 +9,6 @@
     ];
 
   users.users.tess.home = homeDirectory;
-  users.users.tess.isNormalUser = true;
 
   home-manager.users.tess = {
     imports = [
