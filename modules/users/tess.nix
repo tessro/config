@@ -46,6 +46,8 @@
           TERM = "xterm-256color";
         };
       };
+
+      settings.hearth.ForwardAgent = true;
     };
   };
 }
