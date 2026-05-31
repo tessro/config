@@ -7,7 +7,6 @@ let
     home-manager
     ;
 
-  # Modules every host shares.
   common = name: system: [
     ../modules/nix-settings.nix
     ../modules/unfree.nix
@@ -25,25 +24,13 @@ let
     nixpkgs.lib.nixosSystem {
       inherit system;
       specialArgs = { inherit inputs; };
-      modules = common name system ++ modules ++ [
-        home-manager.nixosModules.home-manager
-        {
-          system.stateVersion = lib.mkDefault "25.11";
-          # 2026.11+ default
-          boot.zfs.forceImportRoot = false;
-        }
-      ];
+      modules = common name system ++ modules;
     };
 
   mkDarwin = name: { modules }:
     nix-darwin.lib.darwinSystem {
       specialArgs = { inherit inputs; };
-      modules = common name "aarch64-darwin" ++ modules ++ [
-        home-manager.darwinModules.home-manager
-        {
-          system.stateVersion = lib.mkDefault 6;
-        }
-      ];
+      modules = common name "aarch64-darwin" ++ modules;
     };
 in
 {

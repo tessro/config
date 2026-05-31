@@ -3,6 +3,11 @@
     inputs.home-manager.nixosModules.default
   ];
 
+  system.stateVersion = lib.mkDefault "25.11";
+
+  # 2026.11+ default
+  boot.zfs.forceImportRoot = false;
+
   users.users.tess = {
     isNormalUser = true;
     shell = pkgs.zsh;
