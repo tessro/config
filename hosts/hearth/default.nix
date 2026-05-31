@@ -29,6 +29,7 @@ in {
   ];
 
   facter.reportPath = ./facter.json;
+  system.stateVersion = "25.11";
 
   networking.hostId = "c84fed97";
   networking.nat.externalInterface = "enp4s0";
