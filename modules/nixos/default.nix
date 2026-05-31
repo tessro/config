@@ -14,6 +14,8 @@
   # 2026.11+ default
   boot.zfs.forceImportRoot = false;
 
+  programs.zsh.enable = true;
+
   users.users.tess = {
     isNormalUser = true;
     shell = pkgs.zsh;
