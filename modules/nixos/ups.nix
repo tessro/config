@@ -40,8 +40,14 @@ in
     };
 
     upsd.listen = [
-      { address = "127.0.0.1"; port = 3493; }
-      { address = "192.168.1.30"; port = 3493; }
+      {
+        address = "127.0.0.1";
+        port = 3493;
+      }
+      {
+        address = "192.168.1.30";
+        port = 3493;
+      }
     ];
 
     users.upsmon = {

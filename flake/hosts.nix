@@ -20,14 +20,18 @@ let
     }
   ];
 
-  mkNixos = name: { system, modules }:
+  mkNixos =
+    name:
+    { system, modules }:
     nixpkgs.lib.nixosSystem {
       inherit system;
       specialArgs = { inherit inputs; };
       modules = common name system ++ modules;
     };
 
-  mkDarwin = name: { modules }:
+  mkDarwin =
+    name:
+    { modules }:
     nix-darwin.lib.darwinSystem {
       specialArgs = { inherit inputs; };
       modules = common name "aarch64-darwin" ++ modules;

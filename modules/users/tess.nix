@@ -1,6 +1,14 @@
-{ pkgs, lib, inputs, ... }:
-  let username = "tess";
-      homeDirectory = if pkgs.stdenv.isDarwin then "/Users/tess" else "/home/tess"; in {
+{
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
+let
+  username = "tess";
+  homeDirectory = if pkgs.stdenv.isDarwin then "/Users/tess" else "/home/tess";
+in
+{
   users.users.tess.home = homeDirectory;
 
   home-manager.users.tess = {
@@ -12,14 +20,17 @@
     home.homeDirectory = homeDirectory;
     home.stateVersion = lib.mkDefault "25.11";
 
-    home.packages = with pkgs; [
-      inputs.nix-claude-code.packages.${pkgs.stdenv.hostPlatform.system}.default
-      inputs.codex-cli-nix.packages.${pkgs.stdenv.hostPlatform.system}.default
-    ] ++ lib.optionals pkgs.stdenv.isLinux [
-      # Claude sandbox (Linux namespaces; not available on darwin)
-      bubblewrap
-      socat
-    ];
+    home.packages =
+      with pkgs;
+      [
+        inputs.nix-claude-code.packages.${pkgs.stdenv.hostPlatform.system}.default
+        inputs.codex-cli-nix.packages.${pkgs.stdenv.hostPlatform.system}.default
+      ]
+      ++ lib.optionals pkgs.stdenv.isLinux [
+        # Claude sandbox (Linux namespaces; not available on darwin)
+        bubblewrap
+        socat
+      ];
 
     home.sessionVariables.NH_FLAKE = "${homeDirectory}/repos/config";
 

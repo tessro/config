@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   virtualisation.libvirtd.enable = true;
 
   environment.systemPackages = with pkgs; [
@@ -10,7 +11,10 @@
   ];
 
   networking.firewall.interfaces.virbr0 = {
-    allowedUDPPorts = [ 53 67 ];
+    allowedUDPPorts = [
+      53
+      67
+    ];
     allowedTCPPorts = [ 53 ];
   };
 }

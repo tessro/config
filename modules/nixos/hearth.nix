@@ -1,11 +1,16 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   environment.systemPackages = with pkgs; [
     cloud-hypervisor
     cloud-utils
     socat
   ];
 
-  boot.kernelModules = [ "kvm" "vhost_vsock" "tun" ];
+  boot.kernelModules = [
+    "kvm"
+    "vhost_vsock"
+    "tun"
+  ];
 
   users.groups.hearth = { };
   users.users.hearth = {
@@ -32,10 +37,12 @@
   # dnsmasq hands out the rest of 10.26.8.0/22, and the host
   # masquerades out via the per-host externalInterface.
   networking.bridges.hearth0.interfaces = [ ];
-  networking.interfaces.hearth0.ipv4.addresses = [{
-    address = "10.26.8.1";
-    prefixLength = 22;
-  }];
+  networking.interfaces.hearth0.ipv4.addresses = [
+    {
+      address = "10.26.8.1";
+      prefixLength = 22;
+    }
+  ];
   networking.firewall.trustedInterfaces = [ "hearth0" ];
   networking.nat = {
     enable = true;

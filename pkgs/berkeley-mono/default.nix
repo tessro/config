@@ -3,7 +3,11 @@
 # The font files are licensed and may not be redistributed, so they live in the
 # private `config-private` repo (under fonts/) rather than this public one. The
 # caller passes that directory in as `src`; see modules/fonts.nix.
-{ lib, stdenvNoCC, src }:
+{
+  lib,
+  stdenvNoCC,
+  src,
+}:
 
 stdenvNoCC.mkDerivation {
   pname = "berkeley-mono";

@@ -1,4 +1,5 @@
-{ lib, ... }: {
+{ lib, ... }:
+{
   imports = [
     ../modules/darwin
     ../modules/users/tess.nix

@@ -1,12 +1,11 @@
 { config, ... }:
 let
-dot = path: {
-  name = ".${path}";
-  value.source =
-    config.lib.file.mkOutOfStoreSymlink
-    "${config.home.homeDirectory}/r/config/dots/${path}";
-};
-in {
+  dot = path: {
+    name = ".${path}";
+    value.source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/r/config/dots/${path}";
+  };
+in
+{
   home.file = builtins.listToAttrs [
     (dot "claude/settings.json")
     (dot "config/espanso")

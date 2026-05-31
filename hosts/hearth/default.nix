@@ -1,4 +1,5 @@
-{ inputs, pkgs, ... }: let
+{ inputs, pkgs, ... }:
+let
   syncEfiFallback = ''
     ${pkgs.coreutils}/bin/mkdir -p /boot-fallback
 
@@ -17,7 +18,8 @@
 
     ${pkgs.rsync}/bin/rsync -a --delete /boot/ /boot-fallback/
   '';
-in {
+in
+{
   imports = [
     inputs.nixos-facter-modules.nixosModules.facter
     ../../modules/nixos
@@ -63,13 +65,20 @@ in {
     "/boot" = {
       device = "/dev/disk/by-uuid/8A27-47BA";
       fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022" ];
+      options = [
+        "fmask=0022"
+        "dmask=0022"
+      ];
     };
 
     "/boot-fallback" = {
       device = "/dev/disk/by-uuid/8AB3-FA98";
       fsType = "vfat";
-      options = [ "noauto" "fmask=0022" "dmask=0022" ];
+      options = [
+        "noauto"
+        "fmask=0022"
+        "dmask=0022"
+      ];
     };
   };
 

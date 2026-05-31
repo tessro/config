@@ -29,9 +29,11 @@
     codex-cli-nix.url = "github:sadjow/codex-cli-nix";
   };
 
-  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-    imports = [
-      ./flake/hosts.nix
-    ];
-  };
+  outputs =
+    inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [
+        ./flake/hosts.nix
+      ];
+    };
 }
