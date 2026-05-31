@@ -18,9 +18,14 @@
     ripgrep
     wget
 
+    # infra
+    awscli2
+    opentofu
+
     # lsp
     gopls
     lua-language-server
+    tofu-ls
   ];
 
   programs.java = {
