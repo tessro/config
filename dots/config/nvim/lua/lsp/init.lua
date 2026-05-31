@@ -51,6 +51,19 @@ vim.lsp.config("lua_ls", {
 })
 
 --
+-- Nix
+--
+vim.lsp.config("nixd", {
+	settings = {
+		nixd = {
+			formatting = {
+				command = { "nixfmt" },
+			},
+		},
+	},
+})
+
+--
 -- Python
 --
 vim.lsp.config("pyright", {
@@ -78,6 +91,7 @@ vim.lsp.config("rust_analyzer", {
 vim.lsp.enable({
 	"gopls",
 	"lua_ls",
+	"nixd",
 	"prismals",
 	"pyright",
 	"ruff",
