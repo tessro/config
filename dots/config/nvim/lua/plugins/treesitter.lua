@@ -10,7 +10,7 @@ require("nvim-treesitter").setup({
 		"json",
 		"lua",
 		"make",
-		"prisma",
+		"nix",
 		"python",
 		"rust",
 		"sql",

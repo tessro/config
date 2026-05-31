@@ -92,7 +92,6 @@ vim.lsp.enable({
 	"gopls",
 	"lua_ls",
 	"nixd",
-	"prismals",
 	"pyright",
 	"ruff",
 	"rust_analyzer",
