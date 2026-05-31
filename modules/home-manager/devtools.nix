@@ -10,11 +10,17 @@
     gh
     git
     gnumake
+    go
     jq
     neovim
     packer
+    python3
     ripgrep
     wget
+
+    # lsp
+    gopls
+    lua-language-server
   ];
 
   programs.java = {
