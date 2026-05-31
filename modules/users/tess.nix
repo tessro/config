@@ -6,6 +6,7 @@
   home-manager.users.tess = {
     imports = [
       ../home-manager/devtools.nix
+      ../home-manager/dots.nix
       ../home-manager/fonts.nix
       ../home-manager/secrets.nix
     ];

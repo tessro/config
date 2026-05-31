@@ -1,0 +1,8 @@
+# Also use bash completions
+autoload -U +X bashcompinit && bashcompinit
+
+# Espanso
+export ESPANSO_PATH="/Applications/Espanso.app/Contents/MacOS"
+if [ -d $ESPANSO_PATH ]; then
+  export PATH=$ESPANSO_PATH:$PATH
+fi

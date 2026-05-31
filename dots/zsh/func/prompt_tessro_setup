@@ -1,0 +1,114 @@
+# tessro prompt theme - catppuccin multiline
+
+prompt_tessro_help() {
+  cat <<'EOF'
+  prompt tessro
+
+  Multiline catppuccin prompt with git info.
+  Line 1: in path on branch+*
+  Line 2: › %
+
+  On /mnt/c/ paths, uses git.exe for all git ops (native Windows I/O).
+EOF
+}
+
+prompt_tessro_precmd() {
+  local exit_code=$?
+
+  # Use git.exe on Windows paths (native I/O, no 9P overhead)
+  # Cache check result for session
+  if [[ -z $_prompt_tessro_gcmd ]]; then
+    if whence git.exe &>/dev/null; then
+      typeset -g _prompt_tessro_has_git_exe=1
+    else
+      typeset -g _prompt_tessro_has_git_exe=0
+    fi
+    typeset -g _prompt_tessro_gcmd=1
+  fi
+
+  local gcmd=git
+  if (( _prompt_tessro_has_git_exe )) && [[ ${PWD:A} == /mnt/c/* ]]; then
+    gcmd=git.exe
+  fi
+
+  # Build path display
+  local path_display="%F{147}%2~%f"  # default: lavender
+  local git_info=""
+
+  # Single git call for toplevel + prefix
+  local git_paths=$($gcmd rev-parse --show-toplevel --show-prefix 2>/dev/null)
+  if [[ -n $git_paths ]]; then
+    # Split on newline - prefix may be empty
+    local git_root rel_path
+    if [[ $git_paths == *$'\n'* ]]; then
+      git_root=${git_paths%%$'\n'*}
+      rel_path=${git_paths#*$'\n'}
+    else
+      git_root=$git_paths
+      rel_path=""
+    fi
+    rel_path=${rel_path%/}
+    local repo_name=${git_root:t}
+
+    # Bold + brighter lavender for repo, dimmer for subpath
+    if [[ -z $rel_path ]]; then
+      path_display="%B%F{183}${repo_name}%f%b"
+    else
+      path_display="%B%F{183}${repo_name}%f%b%F{147}/${rel_path}%f"
+    fi
+
+    # Single git status call for branch + dirty
+    local status_all=$($gcmd status --porcelain --branch 2>/dev/null)
+    local status_head=${status_all%%$'\n'*}
+    if [[ $status_head == \#\#* ]]; then
+      # Parse "## branch...tracking"
+      local branch=${status_head#\#\# }
+      branch=${branch%%...*}
+      branch=${branch%% \[*}
+      [[ $branch == "HEAD (no branch)" ]] && branch=$($gcmd rev-parse --short HEAD 2>/dev/null)
+
+      git_info=" %F{103}on%f %F{218}${branch}%f"
+
+      # Check for staged vs unstaged changes
+      if [[ $status_all == *$'\n'* ]]; then
+        local status_lines=${status_all#*$'\n'}
+        local has_staged=0 has_unstaged=0
+        while IFS= read -r line; do
+          [[ -z $line ]] && continue
+          local x=${line:0:1} y=${line:1:1}
+          # Staged: X is not space or ?
+          [[ $x != ' ' && $x != '?' ]] && has_staged=1
+          # Unstaged: Y is not space, or untracked (??)
+          [[ $y != ' ' || $x == '?' ]] && has_unstaged=1
+        done <<< "$status_lines"
+        (( has_staged )) && git_info+="%F{158}+%f"
+        (( has_unstaged )) && git_info+="%F{215}*%f"
+      fi
+    fi
+  fi
+
+  # Show user@host when connected via SSH (in mauve)
+  local remote=""
+  [[ -n $SSH_CLIENT ]] && remote='%F{183}%n@%m%f '
+
+  # Path line: soft accent + path
+  path_display="%F{103}in%f ${path_display}"
+
+  # Prompt: teal on success, salmon on error
+  local prompt_char='%F{147}%#%f'
+  (( exit_code != 0 )) && prompt_char='%F{218}%#%f'
+
+  PS1="${remote}${path_display}${git_info}
+${prompt_char} "
+}
+
+prompt_tessro_setup() {
+  prompt_opts=(percent subst)
+
+  autoload -Uz add-zsh-hook
+  add-zsh-hook precmd prompt_tessro_precmd
+}
+
+prompt_tessro_setup "$@"
+
+# vim:set ft=zsh:
