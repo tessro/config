@@ -1,10 +1,7 @@
 { inputs, ... }: {
   imports = [
     inputs.nixos-wsl.nixosModules.default
-    ../modules/linux
-
-    ../modules/core.nix
-    ../modules/nix.nix
+    ../modules/nixos
     ../modules/users/tess.nix
   ];
 

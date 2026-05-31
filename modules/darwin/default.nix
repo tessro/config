@@ -4,5 +4,8 @@
     ./secrets.nix
   ];
 
+  programs.zsh.enable = true;
+
+  system.primaryUser = lib.mkDefault "tess";
   system.stateVersion = lib.mkDefault 6;
 }

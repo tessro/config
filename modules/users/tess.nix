@@ -5,10 +5,7 @@
 
   home-manager.users.tess = {
     imports = [
-      ../home-manager/devtools.nix
-      ../home-manager/dots.nix
-      ../home-manager/fonts.nix
-      ../home-manager/secrets.nix
+      ../home-manager/default.nix
     ];
 
     home.username = username;
@@ -16,10 +13,6 @@
     home.stateVersion = lib.mkDefault "25.11";
 
     home.packages = with pkgs; [
-      devenv
-      gh
-      nh
-
       inputs.nix-claude-code.packages.${pkgs.stdenv.hostPlatform.system}.default
       inputs.codex-cli-nix.packages.${pkgs.stdenv.hostPlatform.system}.default
     ] ++ lib.optionals pkgs.stdenv.isLinux [

@@ -1,17 +1,19 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
-    # shell
-    fastfetch
-    zellij
-
-    # development
     cmake
+    curl
+    devenv
     fd
     fzf
+    gcc
+    gh
+    git
+    gnumake
     jq
     neovim
     packer
     ripgrep
+    wget
   ];
 
   programs.java = {

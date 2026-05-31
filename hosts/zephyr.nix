@@ -4,5 +4,5 @@
     ../modules/users/tess.nix
   ];
 
-  system.primaryUser = "tess";
+  system.stateVersion = 6;
 }

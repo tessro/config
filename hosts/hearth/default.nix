@@ -21,13 +21,10 @@ in {
   imports = [
     inputs.nixos-facter-modules.nixosModules.facter
     ../../modules/nixos
-    ../../modules/core.nix
-    ../../modules/nix.nix
-    ../../modules/ups.nix
-    ../../modules/bootable.nix
-    ../../modules/tailscale.nix
-    ../../modules/virtualization.nix
-    ../../modules/hearth.nix
+    ../../modules/nixos/bootable.nix
+    ../../modules/nixos/hearth.nix
+    ../../modules/nixos/ups.nix
+    ../../modules/nixos/virtualization.nix
     ../../modules/users/tess.nix
   ];
 
@@ -91,15 +88,6 @@ in {
       "kvm"
     ];
     hashedPassword = "!";
-  };
-
-  services.openssh = {
-    enable = true;
-
-    settings = {
-      PasswordAuthentication = false;
-      PermitRootLogin = "no";
-    };
   };
 
   services.zfs.autoScrub.enable = true;

@@ -1,4 +1,9 @@
 { lib, pkgs, ... }: {
+  imports = [
+    ./ssh.nix
+    ./tailscale.nix
+  ];
+
   environment.systemPackages = with pkgs; [
     pciutils
     usbutils
@@ -8,15 +13,6 @@
   ];
 
   networking.nftables.enable = true;
-
-  services.openssh = {
-    enable = true;
-
-    settings = {
-      PasswordAuthentication = false;
-      PermitRootLogin = lib.mkDefault "no";
-    };
-  };
 
   time.timeZone = "America/Los_Angeles";
 
