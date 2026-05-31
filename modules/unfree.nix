@@ -5,6 +5,7 @@
       "berkeley-mono"
       "claude-code"
       "codex"
+      "packer"
     ];
 
 }

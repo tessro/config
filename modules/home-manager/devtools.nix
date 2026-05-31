@@ -10,6 +10,7 @@
     fzf
     jq
     neovim
+    packer
     ripgrep
   ];
 
