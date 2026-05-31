@@ -12,4 +12,9 @@
     neovim
     ripgrep
   ];
+
+  programs.java = {
+    enable = true;
+    package = pkgs.openjdk25;
+  };
 }
