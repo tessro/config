@@ -4,6 +4,7 @@
     with pkgs;
     [
       fastfetch
+      file
       htop
       killall
     ]
