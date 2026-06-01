@@ -5,6 +5,7 @@
     [
       fastfetch
       htop
+      killall
     ]
     ++ lib.optionals pkgs.stdenv.isLinux [
       sysstat
