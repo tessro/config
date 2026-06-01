@@ -9,6 +9,21 @@
     umoci
   ];
 
+  environment.etc = {
+    "containers/policy.json".text = ''
+      {
+        "default": [
+          {
+            "type": "insecureAcceptAnything"
+          }
+        ]
+      }
+    '';
+    "containers/registries.conf".text = ''
+      unqualified-search-registries = ["docker.io"]
+    '';
+  };
+
   boot.kernelModules = [
     "kvm"
     "vhost_vsock"
