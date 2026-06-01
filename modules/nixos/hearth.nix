@@ -1,9 +1,12 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
+    buildah
     cloud-hypervisor
     cloud-utils
+    skopeo
     socat
+    umoci
   ];
 
   boot.kernelModules = [
