@@ -41,6 +41,7 @@
     "d /etc/hearth                  0750 root   hearth -"
     "d /etc/hearth/services         0750 root   hearth -"
     "d /var/lib/hearth              0750 hearth hearth -"
+    "d /var/lib/hearth/bundles      0750 hearth hearth -"
     "d /var/lib/hearth/images       0750 hearth hearth -"
     "d /var/lib/hearth/disks        0750 hearth hearth -"
     "d /var/lib/hearth/seeds        0750 hearth hearth -"
