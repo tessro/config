@@ -26,8 +26,8 @@
 
   boot.kernelModules = [
     "kvm"
-    "vhost_vsock"
     "tun"
+    "vhost_vsock"
   ];
 
   users.groups.hearth = { };
