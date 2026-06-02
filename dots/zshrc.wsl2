@@ -3,4 +3,6 @@
 alias ssh='ssh.exe'
 alias ssh-add='ssh-add.exe'
 
+export GIT_SSH_COMMAND=/mnt/c/Windows/System32/OpenSSH/ssh.exe
+
 # vi:syntax=bash:
