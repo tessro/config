@@ -6,3 +6,9 @@ export ESPANSO_PATH="/Applications/Espanso.app/Contents/MacOS"
 if [ -d $ESPANSO_PATH ]; then
   export PATH=$ESPANSO_PATH:$PATH
 fi
+
+# Tailscale
+export TAILSCALE_PATH="/Applications/Tailscale.app/Contents/MacOS"
+if [ -d $TAILSCALE_PATH ]; then
+  export PATH=$TAILSCALE_PATH:$PATH
+fi
