@@ -30,7 +30,7 @@
     "vhost_vsock"
   ];
 
-  users.groups.hearth = { };
+  users.groups.hearth.members = [ "tess" ];
   users.users.hearth = {
     isSystemUser = true;
     group = "hearth";
