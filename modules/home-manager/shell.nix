@@ -5,5 +5,10 @@
     zsh
   ];
 
+  programs.mise = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   #programs.zsh.enable = true;
 }
