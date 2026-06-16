@@ -9,6 +9,7 @@
     gcc
     gh
     git
+    git-lfs
     gnumake
     go
     jq
