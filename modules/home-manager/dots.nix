@@ -11,7 +11,6 @@ in
     (dot "config/espanso")
     (dot "config/fnox")
     (dot "config/fortune")
-    (dot "config/gh")
     (dot "config/ghostty")
     (dot "config/mise")
     (dot "config/neofetch")
