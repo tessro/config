@@ -2,9 +2,7 @@
 
 let
   inherit (inputs)
-    nixpkgs
     nix-darwin
-    home-manager
     ;
 
   common = name: system: [
@@ -22,19 +20,37 @@ let
 
   mkNixos =
     name:
-    { system, modules }:
+    {
+      system,
+      modules,
+      nixpkgs ? inputs.nixpkgs,
+      homeManager ? inputs.home-manager,
+    }:
     nixpkgs.lib.nixosSystem {
       inherit system;
-      specialArgs = { inherit inputs; };
+      specialArgs = { inherit inputs homeManager; };
       modules = common name system ++ modules;
     };
 
   mkDarwin =
     name:
-    { modules }:
+    {
+      modules,
+      system ? "aarch64-darwin",
+      nixpkgs ? inputs.nixpkgs-darwin,
+      homeManager ? inputs.home-manager,
+    }:
     nix-darwin.lib.darwinSystem {
-      specialArgs = { inherit inputs; };
-      modules = common name "aarch64-darwin" ++ modules;
+      specialArgs = { inherit inputs homeManager; };
+      modules =
+        common name system
+        ++ [
+          {
+            nixpkgs.source = lib.mkDefault nixpkgs;
+            nixpkgs.flake.source = lib.mkDefault nixpkgs.outPath;
+          }
+        ]
+        ++ modules;
     };
 in
 {
@@ -55,6 +71,8 @@ in
 
     hearth = mkNixos "hearth" {
       system = "x86_64-linux";
+      nixpkgs = inputs.nixpkgs-stable;
+      homeManager = inputs.home-manager-stable;
       modules = [
         ../hosts/hearth/default.nix
       ];

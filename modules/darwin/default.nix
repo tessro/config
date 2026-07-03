@@ -1,7 +1,7 @@
-{ inputs, lib, ... }:
+{ homeManager, lib, ... }:
 {
   imports = [
-    inputs.home-manager.darwinModules.default
+    homeManager.darwinModules.default
     ./secrets.nix
   ];
 

@@ -1,12 +1,12 @@
 {
-  inputs,
+  homeManager,
   lib,
   pkgs,
   ...
 }:
 {
   imports = [
-    inputs.home-manager.nixosModules.default
+    homeManager.nixosModules.default
   ];
 
   system.stateVersion = lib.mkDefault "26.05";
