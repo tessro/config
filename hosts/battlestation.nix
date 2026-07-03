@@ -3,6 +3,7 @@
   imports = [
     inputs.nixos-wsl.nixosModules.default
     ../modules/nixos
+    ../modules/nixos/workstation.nix
     ../modules/users/tess.nix
   ];
 

@@ -12,7 +12,6 @@ in
     (dot "config/fnox")
     (dot "config/fortune")
     (dot "config/ghostty")
-    (dot "config/mise")
     (dot "config/neofetch")
     (dot "config/nvim")
     (dot "config/zellij")
