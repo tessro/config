@@ -1,7 +1,14 @@
-{ homeManager, lib, ... }:
+{
+  homeManager,
+  inputs,
+  lib,
+  ...
+}:
 {
   imports = [
     homeManager.darwinModules.default
+    inputs.nix-homebrew.darwinModules.nix-homebrew
+    ./homebrew.nix
     ./secrets.nix
   ];
 

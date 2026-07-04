@@ -13,6 +13,12 @@
     nix-darwin.url = "github:nix-darwin/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
 
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+    homebrew-cask = {
+      url = "github:homebrew/homebrew-cask";
+      flake = false;
+    };
+
     # Private assets (licensed fonts, etc.) — not redistributable, kept out of
     # this public repo. Plain source tree, not a flake.
     config-private = {
