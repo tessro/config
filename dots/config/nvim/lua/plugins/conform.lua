@@ -2,10 +2,12 @@ local conform = require("conform")
 
 conform.setup({
 	formatters_by_ft = {
-		javascript = { "prettierd", "prettier", stop_after_first = true },
-		typescript = { "prettierd", "prettier", stop_after_first = true },
-		javascriptreact = { "prettierd", "prettier", stop_after_first = true },
-		typescriptreact = { "prettierd", "prettier", stop_after_first = true },
+		javascript = { "oxfmt", "prettierd", "prettier", stop_after_first = true },
+		typescript = { "oxfmt", "prettierd", "prettier", stop_after_first = true },
+		javascriptreact = { "oxfmt", "prettierd", "prettier", stop_after_first = true },
+		typescriptreact = { "oxfmt", "prettierd", "prettier", stop_after_first = true },
+		markdown = { "oxfmt", "prettierd", "prettier", stop_after_first = true },
+		["markdown.mdx"] = { "oxfmt", "prettierd", "prettier", stop_after_first = true },
 		go = { "goimports", "gofmt" },
 		lua = { "stylua" },
 		python = { "black" },
