@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ homeManager, ... }:
 {
   imports = [
     ../modules/darwin
@@ -8,22 +8,26 @@
   tess.homebrew.includePersonal = false;
   tess.homebrew.includeCore = true;
 
-  home-manager.users.tess.programs.ssh.extraConfig = lib.mkAfter ''
-    Host cloud-2
-      ForwardAgent yes
-      SetEnv TERM=xterm-256color
+  home-manager.users.tess.programs.ssh.settings = {
+    cloud-2 = {
+      ForwardAgent = true;
+      SetEnv.TERM = "xterm-256color";
+    };
 
-    # Staging has to be first or prod will match it.
-    Host *.staging.pinecone.internal
-      User runner
-      Port 2222
-      ProxyJump bastion@ssh.staging.pinecone.cloud
+    pinecone-staging-internal = homeManager.lib.hm.dag.entryBefore [ "pinecone-internal" ] {
+      header = "Host *.staging.pinecone.internal";
+      User = "runner";
+      Port = 2222;
+      ProxyJump = "bastion@ssh.staging.pinecone.cloud";
+    };
 
-    Host *.pinecone.internal
-      User runner
-      Port 2222
-      ProxyJump bastion@ssh.pinecone.cloud
-  '';
+    pinecone-internal = {
+      header = "Host *.pinecone.internal";
+      User = "runner";
+      Port = 2222;
+      ProxyJump = "bastion@ssh.pinecone.cloud";
+    };
+  };
 
   nix-homebrew.autoMigrate = true;
 
