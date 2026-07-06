@@ -1,49 +1,68 @@
-{ config, inputs, ... }:
-{
-  nix-homebrew = {
-    enable = true;
-    user = config.system.primaryUser;
+{ config, inputs, lib, ... }:
+let
+  cfg = config.tess.homebrew;
 
-    taps = {
-      "homebrew/homebrew-cask" = inputs.homebrew-cask;
-    };
+  commonCasks = [
+    "1password"
+    "claude"
+    "cleanshot"
+    "discord"
+    "docker-desktop"
+    "espanso"
+    "google-chrome"
+    "obsidian"
+    "pixelsnap"
+    "raycast"
+    "signal"
+    "spotify"
+    "tailscale-app"
+    "telegram"
+    "thaw"
+    "whatsapp"
+    "zoom"
+  ];
 
-    mutableTaps = false;
+  personalCasks = [
+    "dropbox"
+    "ledger-wallet"
+  ];
+
+  commonMasApps = {
+    Amphetamine = 937984704;
+    Xcode = 497799835;
   };
 
-  homebrew = {
-    enable = true;
-    enableZshIntegration = true;
+  personalMasApps = { };
+in
+{
+  options.tess.homebrew.includePersonal = lib.mkOption {
+    type = lib.types.bool;
+    default = false;
+    description = "Whether to install apps from the personal Homebrew and MAS buckets.";
+  };
 
-    taps = builtins.attrNames config.nix-homebrew.taps;
+  config = {
+    nix-homebrew = {
+      enable = true;
+      user = config.system.primaryUser;
 
-    greedyCasks = false;
+      taps = {
+        "homebrew/homebrew-cask" = inputs.homebrew-cask;
+      };
 
-    casks = [
-      "1password"
-      "claude"
-      "cleanshot"
-      "discord"
-      "docker-desktop"
-      "dropbox"
-      "espanso"
-      "google-chrome"
-      "ledger-wallet"
-      "obsidian"
-      "pixelsnap"
-      "raycast"
-      "signal"
-      "spotify"
-      "tailscale-app"
-      "telegram"
-      "thaw"
-      "whatsapp"
-      "zoom"
-    ];
+      mutableTaps = false;
+    };
 
-    masApps = {
-      Amphetamine = 937984704;
-      Xcode = 497799835;
+    homebrew = {
+      enable = true;
+      enableZshIntegration = true;
+
+      taps = builtins.attrNames config.nix-homebrew.taps;
+
+      greedyCasks = false;
+
+      casks = commonCasks ++ lib.optionals cfg.includePersonal personalCasks;
+      masApps = commonMasApps // lib.optionalAttrs cfg.includePersonal personalMasApps;
     };
   };
 }
