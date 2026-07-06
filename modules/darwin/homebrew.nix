@@ -1,6 +1,13 @@
 { config, inputs, lib, ... }:
 let
   cfg = config.tess.homebrew;
+  homebrewCore = builtins.fetchTree {
+    type = "github";
+    owner = "homebrew";
+    repo = "homebrew-core";
+    rev = "d64e94408210615114922f7be48f0817edef91db";
+    narHash = "sha256-dSlg8gIC2DFbhAUzg8z+tnjm+hnrigD72k9cGPv3+aw=";
+  };
 
   commonCasks = [
     "1password"
@@ -35,10 +42,18 @@ let
   personalMasApps = { };
 in
 {
-  options.tess.homebrew.includePersonal = lib.mkOption {
-    type = lib.types.bool;
-    default = false;
-    description = "Whether to install apps from the personal Homebrew and MAS buckets.";
+  options.tess.homebrew = {
+    includePersonal = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Whether to install apps from the personal Homebrew and MAS buckets.";
+    };
+
+    includeCore = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Whether to add the homebrew/core tap.";
+    };
   };
 
   config = {
@@ -48,6 +63,8 @@ in
 
       taps = {
         "homebrew/homebrew-cask" = inputs.homebrew-cask;
+      } // lib.optionalAttrs cfg.includeCore {
+        "homebrew/homebrew-core" = homebrewCore;
       };
 
       mutableTaps = false;

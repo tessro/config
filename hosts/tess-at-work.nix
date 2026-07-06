@@ -6,6 +6,7 @@
   ];
 
   tess.homebrew.includePersonal = false;
+  tess.homebrew.includeCore = true;
 
   nix-homebrew.autoMigrate = true;
 
