@@ -26,12 +26,12 @@ let
     "telegram"
     "thaw"
     "whatsapp"
-    "zoom"
   ];
 
   personalCasks = [
     "dropbox"
     "ledger-wallet"
+    "zoom"
   ];
 
   commonMasApps = {
