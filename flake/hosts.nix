@@ -85,5 +85,11 @@ in
         ../hosts/zephyr.nix
       ];
     };
+
+    tess-at-work = mkDarwin "tess-at-work" {
+      modules = [
+        ../hosts/tess-at-work.nix
+      ];
+    };
   };
 }
