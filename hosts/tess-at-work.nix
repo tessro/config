@@ -7,6 +7,7 @@
 
   tess.homebrew.includePersonal = false;
   tess.homebrew.includeCore = true;
+  tess.homebrew.includeTerraformTap = true;
 
   home-manager.users.tess.programs.ssh.settings = {
     cloud-2 = {

@@ -8,6 +8,13 @@ let
     rev = "d64e94408210615114922f7be48f0817edef91db";
     narHash = "sha256-dSlg8gIC2DFbhAUzg8z+tnjm+hnrigD72k9cGPv3+aw=";
   };
+  hashicorpTap = builtins.fetchTree {
+    type = "github";
+    owner = "hashicorp";
+    repo = "homebrew-tap";
+    rev = "1d47bcf9f71f253ea5eb7e562ef5f2813383eec5";
+    narHash = "sha256-6VJF30A4E+REtWAt2nPmuwZ/TvoS+Nog7lFOWNMW4zU=";
+  };
 
   commonCasks = [
     "1password"
@@ -54,6 +61,12 @@ in
       default = false;
       description = "Whether to add the homebrew/core tap.";
     };
+
+    includeTerraformTap = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Whether to add the HashiCorp Terraform Homebrew tap.";
+    };
   };
 
   config = {
@@ -65,6 +78,8 @@ in
         "homebrew/homebrew-cask" = inputs.homebrew-cask;
       } // lib.optionalAttrs cfg.includeCore {
         "homebrew/homebrew-core" = homebrewCore;
+      } // lib.optionalAttrs cfg.includeTerraformTap {
+        "hashicorp/tap" = hashicorpTap;
       };
 
       mutableTaps = false;
