@@ -16,8 +16,6 @@ in
     (dot "config/nvim")
     (dot "config/zellij")
     (dot "zsh")
-    (dot "gitconfig")
-    (dot "gitignore")
     (dot "inputrc")
     (dot "zshrc")
     (dot "zshrc.darwin")

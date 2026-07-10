@@ -9,8 +9,6 @@
       devenv
       fd
       fzf
-      git
-      git-lfs
       go
       jq
       neovim
