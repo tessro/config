@@ -1,8 +1,7 @@
 {
   programs.gh = {
     enable = true;
-
-    hosts."github.com".user = "tessro";
+    gitCredentialHelper.enable = true;
 
     settings.aliases = {
       co = "pr checkout";
