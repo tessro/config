@@ -90,8 +90,6 @@
       fetch.prune = true;
     };
 
-    # This used to be relative to ~/.gitconfig. Home Manager writes its config
-    # under ~/.config/git, so keep the include anchored in the home directory.
     includes = [ { path = "~/.gitconfig.local"; } ];
   };
 }
