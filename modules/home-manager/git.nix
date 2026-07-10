@@ -1,4 +1,14 @@
 {
+  programs.gh = {
+    enable = true;
+
+    hosts."github.com".user = "tessro";
+
+    settings.aliases = {
+      co = "pr checkout";
+    };
+  };
+
   programs.git = {
     enable = true;
     lfs.enable = true;

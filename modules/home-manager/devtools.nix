@@ -31,16 +31,6 @@
       gnumake
     ];
 
-  programs.gh = {
-    enable = true;
-
-    hosts."github.com".user = "tessro";
-
-    settings.aliases = {
-      co = "pr checkout";
-    };
-  };
-
   programs.java = {
     enable = true;
     package = pkgs.openjdk25;
