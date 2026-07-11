@@ -12,7 +12,6 @@
       go
       jq
       neovim
-      packer
       python3
       ripgrep
       wget
