@@ -7,5 +7,7 @@
 
   tess.homebrew.includePersonal = true;
 
+  home-manager.users.tess.programs.ssh.settings.hearth.ForwardAgent = true;
+
   system.stateVersion = 6;
 }
