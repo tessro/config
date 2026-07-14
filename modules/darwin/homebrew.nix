@@ -79,7 +79,7 @@ in
       } // lib.optionalAttrs cfg.includeCore {
         "homebrew/homebrew-core" = homebrewCore;
       } // lib.optionalAttrs cfg.includeTerraformTap {
-        "hashicorp/tap" = hashicorpTap;
+        "hashicorp/homebrew-tap" = hashicorpTap;
       };
 
       mutableTaps = false;
