@@ -1,0 +1,183 @@
+name: Update flakes
+
+on:
+  schedule:
+    # 02:23 or 03:23 Pacific, depending on daylight saving time.
+    - cron: "23 10 * * *"
+  workflow_dispatch:
+
+# Each job opts into only the repository permissions it needs.
+permissions: {}
+
+concurrency:
+  group: update-flakes
+  cancel-in-progress: false
+
+jobs:
+  update-lock:
+    name: Update flake lock
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      changed: ${{ steps.update.outputs.changed }}
+      commit: ${{ steps.update.outputs.commit }}
+    steps:
+      - uses: actions/checkout@v7.0.0
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Configure config-private deploy key
+        env:
+          CONFIG_PRIVATE_DEPLOY_KEY: ${{ secrets.CONFIG_PRIVATE_DEPLOY_KEY }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$CONFIG_PRIVATE_DEPLOY_KEY" > ~/.ssh/config-private
+          chmod 600 ~/.ssh/config-private
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          cat >> ~/.ssh/config <<'EOF'
+          Host github.com
+            IdentityFile ~/.ssh/config-private
+            IdentitiesOnly yes
+            StrictHostKeyChecking yes
+          EOF
+          chmod 600 ~/.ssh/config ~/.ssh/known_hosts
+
+      - uses: cachix/install-nix-action@v31.10.7
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Update and commit flake.lock
+        id: update
+        run: |
+          nix flake update
+
+          if git diff --quiet -- flake.lock; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          unexpected=$(git diff --name-only -- ':!flake.lock')
+          if [ -n "$unexpected" ]; then
+            echo "nix flake update changed unexpected files:" >&2
+            echo "$unexpected" >&2
+            exit 1
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add flake.lock
+          git commit -m "chore: update flake inputs"
+
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          git bundle create "$RUNNER_TEMP/flake-update.bundle" HEAD ^origin/main
+
+      - name: Upload update commit
+        if: steps.update.outputs.changed == 'true'
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: flake-update-bundle
+          path: ${{ runner.temp }}/flake-update.bundle
+          if-no-files-found: error
+          retention-days: 1
+
+  build-hosts:
+    name: Build ${{ matrix.host }}
+    needs: update-lock
+    if: needs.update-lock.outputs.changed == 'true'
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - host: battlestation
+            runner: ubuntu-latest
+            attr: nixosConfigurations.battlestation.config.system.build.toplevel
+          - host: forge
+            runner: ubuntu-latest
+            attr: nixosConfigurations.forge.config.system.build.toplevel
+          - host: hearth
+            runner: ubuntu-latest
+            attr: nixosConfigurations.hearth.config.system.build.toplevel
+          - host: zephyr
+            runner: macos-15
+            attr: darwinConfigurations.zephyr.system
+          - host: tess-at-work
+            runner: macos-15
+            attr: darwinConfigurations.tess-at-work.system
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v7.0.0
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Download update commit
+        uses: actions/download-artifact@v8.0.1
+        with:
+          name: flake-update-bundle
+          path: ${{ runner.temp }}/flake-update
+
+      - name: Check out update commit
+        run: |
+          git fetch "$RUNNER_TEMP/flake-update/flake-update.bundle" HEAD:refs/remotes/origin/flake-update
+          git checkout --detach "${{ needs.update-lock.outputs.commit }}"
+
+      - name: Configure config-private deploy key
+        env:
+          CONFIG_PRIVATE_DEPLOY_KEY: ${{ secrets.CONFIG_PRIVATE_DEPLOY_KEY }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$CONFIG_PRIVATE_DEPLOY_KEY" > ~/.ssh/config-private
+          chmod 600 ~/.ssh/config-private
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          cat >> ~/.ssh/config <<'EOF'
+          Host github.com
+            IdentityFile ~/.ssh/config-private
+            IdentitiesOnly yes
+            StrictHostKeyChecking yes
+          EOF
+          chmod 600 ~/.ssh/config ~/.ssh/known_hosts
+
+      - uses: cachix/install-nix-action@v31.10.7
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Build ${{ matrix.host }}
+        run: nix build --print-build-logs --no-link ".#${{ matrix.attr }}"
+
+  push-main:
+    name: Push update to main
+    needs:
+      - update-lock
+      - build-hosts
+    if: needs.update-lock.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7.0.0
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Download update commit
+        uses: actions/download-artifact@v8.0.1
+        with:
+          name: flake-update-bundle
+          path: ${{ runner.temp }}/flake-update
+
+      - name: Fast-forward main
+        run: |
+          git fetch origin main
+          git fetch "$RUNNER_TEMP/flake-update/flake-update.bundle" HEAD:refs/remotes/origin/flake-update
+          git checkout -B main origin/main
+          git merge --ff-only "${{ needs.update-lock.outputs.commit }}"
+          git push origin main
