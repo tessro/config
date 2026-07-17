@@ -1,0 +1,10 @@
+keys:
+  - &tess age1kkdp9ptghplyw7rwt50zegj39vgvzy44hld2c7mwrtu4t68t6ulsgsdqpd
+  - &hearth age1lemt2q95e95ecfqm6j462ypynu7dqvghhgj5w6rmzsjd82d7lvqslt5ste
+
+creation_rules:
+  - path_regex: hosts/hearth/secrets\.yaml$
+    key_groups:
+      - age:
+          - *tess
+          - *hearth

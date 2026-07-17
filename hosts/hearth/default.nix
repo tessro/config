@@ -22,6 +22,7 @@ in
 {
   imports = [
     inputs.nixos-facter-modules.nixosModules.facter
+    ./caddy.nix
     ../../modules/nixos
     ../../modules/nixos/bootable.nix
     ../../modules/nixos/hearth.nix
