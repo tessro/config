@@ -62,6 +62,11 @@
       prefixLength = 22;
     }
   ];
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+    5173
+  ];
   networking.firewall.trustedInterfaces = [ "hearth0" ];
   networking.nat = {
     enable = true;
