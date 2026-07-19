@@ -12,10 +12,21 @@
     authorizedKeys = config.users.users.tess.openssh.authorizedKeys.keys;
     operatorUsers = [ "tess" ];
 
+    agentPlane = {
+      enable = true;
+      httpTokenFile = config.sops.secrets."hearth-http-token".path;
+      refKeyFile = config.sops.secrets."hearth-ref-key".path;
+    };
+
     networking = {
       manage = true;
       uplinkInterface = "enp4s0";
     };
+  };
+
+  sops.secrets = {
+    "hearth-http-token".restartUnits = [ "hearth-agentd.service" ];
+    "hearth-ref-key".restartUnits = [ "hearth-agentd.service" ];
   };
 
   # make dev-restart replaces ExecStart, so keep the Nix-built kernel path in
