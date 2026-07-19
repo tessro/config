@@ -104,6 +104,24 @@
         "type": "github"
       }
     },
+    "hearth": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1784436011,
+        "narHash": "sha256-2yK7tnm9fRLCUKOjrXPHvMGJ4jjn7ivkLQesnJ1Yh60=",
+        "owner": "tessro",
+        "repo": "hearth",
+        "rev": "1c8b2076d9adef4ce0d2ac8638d69b282e429ff0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tessro",
+        "repo": "hearth",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -163,7 +181,7 @@
     },
     "nix-claude-code": {
       "inputs": {
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_3"
       },
       "locked": {
         "lastModified": 1784251869,
@@ -318,6 +336,22 @@
     },
     "nixpkgs_2": {
       "locked": {
+        "lastModified": 1778274207,
+        "narHash": "sha256-I4puXmX1iovcCHZlRmztO3vW0mAbbRvq4F8wgIMQ1MM=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "b3da656039dc7a6240f27b2ef8cc6a3ef3bccae7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "b3da656039dc7a6240f27b2ef8cc6a3ef3bccae7",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
         "lastModified": 1783776592,
         "narHash": "sha256-UgCQzxeWI75XM8G+hPrPh+MKzEPjG3SpAj7dtqSbksA=",
         "owner": "NixOS",
@@ -332,7 +366,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_3": {
+    "nixpkgs_4": {
       "locked": {
         "lastModified": 1784120854,
         "narHash": "sha256-KesHgItiZPgGX740axSiQLcIQ8D24MDqNpkKYWIek8k=",
@@ -353,6 +387,7 @@
         "codex-cli-nix": "codex-cli-nix",
         "config-private": "config-private",
         "flake-parts": "flake-parts",
+        "hearth": "hearth",
         "home-manager": "home-manager",
         "home-manager-stable": "home-manager-stable",
         "homebrew-cask": "homebrew-cask",
@@ -361,7 +396,7 @@
         "nix-homebrew": "nix-homebrew",
         "nixos-facter-modules": "nixos-facter-modules",
         "nixos-wsl": "nixos-wsl",
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": "nixpkgs_4",
         "nixpkgs-darwin": "nixpkgs-darwin",
         "nixpkgs-stable": "nixpkgs-stable",
         "sops-nix": "sops-nix"

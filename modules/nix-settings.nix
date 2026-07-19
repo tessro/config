@@ -10,6 +10,10 @@
         "root"
         "@wheel"
       ];
+      substituters = [ "https://tessro.cachix.org" ];
+      trusted-public-keys = [
+        "tessro.cachix.org-1:Du6hKWIx/04tOlXfv8dsJiBNwhYOB15KQAZRgQfl7+o="
+      ];
     };
 
     # https://nixos.wiki/wiki/Storage_optimization

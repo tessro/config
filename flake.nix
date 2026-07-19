@@ -31,6 +31,8 @@
 
     nixos-facter-modules.url = "github:nix-community/nixos-facter-modules";
 
+    hearth.url = "github:tessro/hearth";
+
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
