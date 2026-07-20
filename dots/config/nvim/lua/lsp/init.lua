@@ -67,11 +67,22 @@ vim.lsp.config("nixd", {
 -- Python
 --
 vim.lsp.config("pyright", {
-	settings = {
-		python = {
-			venvPath = "~/.pyenv/versions",
-		},
-	},
+	before_init = function(_, config)
+		local environment = vim.env.UV_PROJECT_ENVIRONMENT
+		if not environment or environment == "" then
+			return
+		end
+
+		if vim.fn.isabsolutepath(environment) == 0 then
+			environment = vim.fs.joinpath(config.root_dir, environment)
+		end
+
+		config.settings = vim.tbl_deep_extend("force", config.settings or {}, {
+			python = {
+				pythonPath = vim.fs.joinpath(environment, "bin", "python"),
+			},
+		})
+	end,
 })
 
 --
