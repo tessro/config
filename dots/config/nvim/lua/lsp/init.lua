@@ -77,11 +77,9 @@ vim.lsp.config("pyright", {
 			environment = vim.fs.joinpath(config.root_dir, environment)
 		end
 
-		config.settings = vim.tbl_deep_extend("force", config.settings or {}, {
-			python = {
-				pythonPath = vim.fs.joinpath(environment, "bin", "python"),
-			},
-		})
+		config.settings = config.settings or {}
+		config.settings.python = config.settings.python or {}
+		config.settings.python.pythonPath = vim.fs.joinpath(environment, "bin", "python")
 	end,
 })
 
