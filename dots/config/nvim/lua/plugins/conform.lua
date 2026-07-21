@@ -10,7 +10,7 @@ conform.setup({
 		["markdown.mdx"] = { "oxfmt", "prettierd", "prettier", stop_after_first = true },
 		go = { "goimports", "gofmt" },
 		lua = { "stylua" },
-		python = { "black" },
+		python = { "ruff_format" },
 		rust = { "rustfmt" },
 	},
 
