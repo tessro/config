@@ -2,6 +2,7 @@
   homeManager,
   inputs,
   lib,
+  pkgs,
   ...
 }:
 {
@@ -13,6 +14,10 @@
   ];
 
   programs.zsh.enable = true;
+
+  environment.systemPackages = [
+    pkgs.ghostty-bin
+  ];
 
   system.primaryUser = lib.mkDefault "tess";
   system.stateVersion = lib.mkDefault 6;
