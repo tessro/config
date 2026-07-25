@@ -12,6 +12,7 @@
       go
       jq
       neovim
+      openssl
       python3
       ripgrep
       wget
