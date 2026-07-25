@@ -106,14 +106,15 @@
     },
     "hearth": {
       "inputs": {
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_2",
+        "stalin": "stalin"
       },
       "locked": {
-        "lastModified": 1784949392,
-        "narHash": "sha256-6grfPIqBvBGuDDEraZ3s7P9GcPbupgvoant/eHerblE=",
+        "lastModified": 1785010745,
+        "narHash": "sha256-+ZkPrcrHFgvVVYSWsi2NU1tWMR9vKKQD0wJyykBLQSg=",
         "owner": "tessro",
         "repo": "hearth",
-        "rev": "ba088694b96e29e2f8022a23d16debdfce9fd364",
+        "rev": "0d3d33cdfd5061c9ffc9d12b848346eb526cb9a1",
         "type": "github"
       },
       "original": {
@@ -419,6 +420,27 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "stalin": {
+      "inputs": {
+        "nixpkgs": [
+          "hearth",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1785005308,
+        "narHash": "sha256-i6CEy1AN4B/8ZCdHBpcKnn+SNTw4vO29AHd6U0qyx3U=",
+        "owner": "tessro",
+        "repo": "stalin",
+        "rev": "4f9e333d81a7b6f1bba7207f44d5234ba01485f0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tessro",
+        "repo": "stalin",
         "type": "github"
       }
     },

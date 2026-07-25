@@ -1,0 +1,25 @@
+listen = "10.26.8.1:8080"
+
+[mitm]
+mode = "selective"
+ca_cert = "/etc/stalin/ca.pem"
+ca_key = "/run/credentials/stalin.service/mitm_ca_key"
+
+[destinations.openrouter]
+scheme = "https"
+host = "openrouter.ai"
+port = 443
+tls = "inspect"
+
+[secrets.openrouter_api_key]
+source = "systemd_credential"
+name = "openrouter_api_key"
+
+[[rules]]
+name = "openrouter-auth"
+destination = "openrouter"
+audit = true
+
+[rules.request_headers.set.authorization]
+secret = "openrouter_api_key"
+format = "Bearer {value}"
