@@ -6,10 +6,6 @@ autoload -Uz promptinit
 promptinit
 prompt tessro
 
-# Initialize completion
-autoload -U compinit
-compinit -D
-
 # Add paths
 export PATH="$HOME/bin:$PATH:$HOME/.local/bin"
 
@@ -19,9 +15,6 @@ export PATH="$HOME/bin:$PATH:$HOME/.local/bin"
 
 # Rust
 if [[ -s $HOME/.cargo/env ]] ; then source $HOME/.cargo/env ; fi
-
-# Go
-if command -v go &>/dev/null ; then export PATH="$(go env GOPATH)/bin:$PATH" ; fi
 
 # Handy
 function mkcd () {
@@ -74,10 +67,6 @@ if [[ -s ~/.zshrc.local ]] ; then source ~/.zshrc.local ; fi
 # Nix home-manager
 hm_session_vars=/etc/profiles/per-user/tess/etc/profile.d/hm-session-vars.sh
 if [[ -s $hm_session_vars ]]; then source $hm_session_vars ; fi
-
-if command -v wt >/dev/null 2>&1 ; then eval "$(wt config shell init zsh)" ; fi
-command -v fnox >/dev/null && eval "$(fnox activate zsh)"
-command -v mise >/dev/null && eval "$(mise activate zsh)"
 
 export AWS_DEFAULT_REGION="us-west-2"
 

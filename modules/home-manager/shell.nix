@@ -7,7 +7,7 @@
 
   programs.mise = {
     enable = true;
-    enableZshIntegration = true;
+    enableZshIntegration = false;
     globalConfig.settings.all_compile = false;
   };
 
