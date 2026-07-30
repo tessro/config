@@ -7,6 +7,7 @@
       file
       htop
       killall
+      pstree
     ]
     ++ lib.optionals pkgs.stdenv.isLinux [
       sysstat

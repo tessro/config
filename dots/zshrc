@@ -68,6 +68,9 @@ if [[ -s ~/.zshrc.local ]] ; then source ~/.zshrc.local ; fi
 hm_session_vars=/etc/profiles/per-user/tess/etc/profile.d/hm-session-vars.sh
 if [[ -s $hm_session_vars ]]; then source $hm_session_vars ; fi
 
+# Devenv
+eval "$(devenv hook zsh)"
+
 export AWS_DEFAULT_REGION="us-west-2"
 
 # Disable the use of the Amazon EC2 instance metadata service (IMDS). This
