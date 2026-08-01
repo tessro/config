@@ -55,6 +55,7 @@
         rom = "rebase origin/main";
         riom = "rebase -i origin/main";
         rn = "revert --no-commit";
+        sha = "rev-parse --short HEAD";
         sta = "stash";
         sp = "stash pop";
         sl = "stash list";
