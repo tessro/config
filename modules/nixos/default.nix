@@ -16,8 +16,6 @@
 
   programs.zsh.enable = true;
 
-  # Run generic dynamically-linked binaries (e.g. the CLI that Claude Code's
-  # SSH remote feature installs) via the nix-ld loader shim.
   programs.nix-ld.enable = true;
 
   users.users.tess = {

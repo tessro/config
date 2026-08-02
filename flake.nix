@@ -35,10 +35,6 @@
 
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
-
-    # AI
-    nix-claude-code.url = "github:ryoppippi/nix-claude-code";
-    codex-cli-nix.url = "github:sadjow/codex-cli-nix";
   };
 
   outputs =

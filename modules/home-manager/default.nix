@@ -1,5 +1,4 @@
 {
-  inputs,
   lib,
   pkgs,
   ...
@@ -16,15 +15,8 @@
     ../home-manager/utils.nix
   ];
 
-  home.packages =
-    with pkgs;
-    [
-      inputs.nix-claude-code.packages.${pkgs.stdenv.hostPlatform.system}.default
-      inputs.codex-cli-nix.packages.${pkgs.stdenv.hostPlatform.system}.default
-    ]
-    ++ lib.optionals pkgs.stdenv.isLinux [
-      # Claude sandbox (Linux namespaces; not available on darwin)
-      bubblewrap
-      socat
-    ];
+  home.packages = lib.optionals pkgs.stdenv.isLinux [
+    pkgs.bubblewrap
+    pkgs.socat
+  ];
 }
