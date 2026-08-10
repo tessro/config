@@ -9,6 +9,8 @@
   tess.homebrew.includeCore = true;
   tess.homebrew.includeTerraformTap = true;
 
+  home-manager.users.tess.home.file.".claude/settings.json".enable = false;
+
   home-manager.users.tess.programs.ssh.settings = {
     cloud-2 = {
       ForwardAgent = true;
