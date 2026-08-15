@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ config, inputs, ... }:
 {
   imports = [
     inputs.nixos-wsl.nixosModules.default
@@ -10,6 +10,11 @@
   system.stateVersion = "25.11";
 
   wsl.enable = true;
+  wsl.useWindowsDriver = true;
+  programs.nix-ld.libraries = [
+    config.wsl.wslLib
+  ];
+
   wsl.defaultUser = "tess";
 
   boot.loader.grub.enable = false;
