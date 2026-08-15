@@ -6,6 +6,8 @@
   ];
 
   environment.systemPackages = with pkgs; [
+    dmidecode
+    ipmitool
     pciutils
     usbutils
     nvme-cli
