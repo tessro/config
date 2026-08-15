@@ -26,7 +26,7 @@
       lua-language-server
       tofu-ls
     ]
-    ++ lib.optionals pkgs.stdenv.isLinux [
+    ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
       gcc
       gnumake
     ];

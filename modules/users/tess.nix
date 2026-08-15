@@ -5,7 +5,7 @@
 }:
 let
   username = "tess";
-  homeDirectory = if pkgs.stdenv.isDarwin then "/Users/tess" else "/home/tess";
+  homeDirectory = if pkgs.stdenv.hostPlatform.isDarwin then "/Users/tess" else "/home/tess";
 in
 {
   users.users.tess.home = homeDirectory;
@@ -15,7 +15,7 @@ in
       [
         ../home-manager/default.nix
       ]
-      ++ lib.optionals pkgs.stdenv.isDarwin [
+      ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
         ../home-manager/darwin.nix
       ];
 
