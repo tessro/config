@@ -50,27 +50,30 @@ jobs:
           extra_nix_config: |
             experimental-features = nix-command flakes
 
-      - name: Update and commit flake.lock
+      - name: Update and commit dependencies
         id: update
         run: |
           nix flake update
+          python3 hosts/hearth/caddy/update.py
+          nix build --print-build-logs --no-link .#nixosConfigurations.hearth.config.services.caddy.package
 
-          if git diff --quiet -- flake.lock; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          unexpected=$(git diff --name-only -- ':!flake.lock')
+          updated_files=(flake.lock hosts/hearth/caddy/sources.json hosts/hearth/caddy/go.mod hosts/hearth/caddy/go.sum)
+          unexpected=$(git diff --name-only -- ':!flake.lock' ':!hosts/hearth/caddy/sources.json' ':!hosts/hearth/caddy/go.mod' ':!hosts/hearth/caddy/go.sum')
           if [ -n "$unexpected" ]; then
-            echo "nix flake update changed unexpected files:" >&2
+            echo "Dependency update changed unexpected files:" >&2
             echo "$unexpected" >&2
             exit 1
           fi
 
+          if git diff --quiet -- "${updated_files[@]}"; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add flake.lock
-          git commit -m "chore: update flake inputs"
+          git add "${updated_files[@]}"
+          git commit -m "chore: update flake inputs and Caddy dependencies"
 
           echo "changed=true" >> "$GITHUB_OUTPUT"
           echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
