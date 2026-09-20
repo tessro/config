@@ -4,7 +4,8 @@ let
     plugins = [
       "github.com/caddy-dns/cloudflare@v0.2.4"
     ];
-    hash = "sha256-PWadA5qr/gR2qDcT8l8u1Xku7LM2HIfWTLOkzezCYy0=";
+    # Recheck this hash when nixpkgs-stable updates Caddy or its Go dependencies.
+    hash = "sha256-dQvk6ezY6TQ1J7PjhCXnThF/SqVgPwBO8/RXzHCY+js=";
   };
 in
 {
