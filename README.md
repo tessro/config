@@ -11,7 +11,8 @@ Each Mac gets its own file in `hosts/` and entry in `flake/hosts.nix`.
 `nemesis` is the new work Mac (Apple Silicon, macOS user `tess`). It starts
 from `tess-at-work`, with its own host settings: no Pinecone SSH routes,
 Homebrew core or HashiCorp taps. It uses the same shared dev tools as `zephyr`.
-Homebrew still manages the common casks and Mac App Store apps.
+It also uses the shared Claude settings. Homebrew still manages the common
+casks and Mac App Store apps.
 
 1. Install [Nix](https://nixos.org/download) and 1Password.
    This config lets nix-darwin manage Nix; use an install that supports that.
