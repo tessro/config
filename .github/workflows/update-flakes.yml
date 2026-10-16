@@ -113,6 +113,9 @@ jobs:
           - host: tess-at-work
             runner: macos-15
             attr: darwinConfigurations.tess-at-work.system
+          - host: nemesis
+            runner: macos-15
+            attr: darwinConfigurations.nemesis.system
     runs-on: ${{ matrix.runner }}
     steps:
       - uses: actions/checkout@v7.0.0

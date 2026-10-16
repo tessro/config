@@ -91,5 +91,11 @@ in
         ../hosts/tess-at-work.nix
       ];
     };
+
+    nemesis = mkDarwin "nemesis" {
+      modules = [
+        ../hosts/nemesis.nix
+      ];
+    };
   };
 }
