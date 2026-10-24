@@ -110,9 +110,6 @@ jobs:
           - host: zephyr
             runner: macos-15
             attr: darwinConfigurations.zephyr.system
-          - host: tess-at-work
-            runner: macos-15
-            attr: darwinConfigurations.tess-at-work.system
           - host: nemesis
             runner: macos-15
             attr: darwinConfigurations.nemesis.system

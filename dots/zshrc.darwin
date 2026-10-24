@@ -12,3 +12,8 @@ export TAILSCALE_PATH="/Applications/Tailscale.app/Contents/MacOS"
 if [ -d $TAILSCALE_PATH ]; then
   export PATH=$TAILSCALE_PATH:$PATH
 fi
+
+# Rex
+if [ -n "$REX_BIN_DIR" ]; then
+  export PATH="$REX_BIN_DIR:$PATH"
+fi

@@ -12,6 +12,7 @@
       go
       jq
       neovim
+      nodejs_latest
       openssl
       python3
       ripgrep

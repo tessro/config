@@ -22,6 +22,7 @@ in
 {
   imports = [
     inputs.nixos-facter-modules.nixosModules.facter
+    inputs.rex.nixosModules.default
     ./caddy.nix
     ./egress.nix
     ../../modules/nixos
@@ -103,6 +104,12 @@ in
 
   services.zfs.autoScrub.enable = true;
   services.zfs.trim.enable = true;
+
+  services.rex.loginServer = {
+    enable = true;
+    accounts.tess.principals = [ "tailscale:tess.rosania@gmail.com" ];
+    tailscaleServe.enable = true;
+  };
 
   hardware.rasdaemon.enable = true;
 }
