@@ -7,5 +7,7 @@
 
   tess.homebrew.includePersonal = false;
 
+  homebrew.casks = [ "session-manager-plugin" ];
+
   system.stateVersion = 6;
 }
