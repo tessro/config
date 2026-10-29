@@ -32,7 +32,7 @@ prompt_tessro_precmd() {
   fi
 
   # Build path display
-  local path_display="%F{#afafff}%2~%f"  # default: lavender
+  local path_display="%F{147}%2~%f"  # default: lavender
   local git_info=""
 
   # Single git call for toplevel + prefix
@@ -52,9 +52,9 @@ prompt_tessro_precmd() {
 
     # Bold + brighter lavender for repo, dimmer for subpath
     if [[ -z $rel_path ]]; then
-      path_display="%B%F{#d7afff}${repo_name}%f%b"
+      path_display="%B%F{183}${repo_name}%f%b"
     else
-      path_display="%B%F{#d7afff}${repo_name}%f%b%F{#afafff}/${rel_path}%f"
+      path_display="%B%F{183}${repo_name}%f%b%F{147}/${rel_path}%f"
     fi
 
     # Single git status call for branch + dirty
@@ -67,7 +67,7 @@ prompt_tessro_precmd() {
       branch=${branch%% \[*}
       [[ $branch == "HEAD (no branch)" ]] && branch=$($gcmd rev-parse --short HEAD 2>/dev/null)
 
-      git_info=" %F{#8787af}on%f %F{#ffafd7}${branch}%f"
+      git_info=" %F{103}on%f %F{218}${branch}%f"
 
       # Check for staged vs unstaged changes
       if [[ $status_all == *$'\n'* ]]; then
@@ -81,22 +81,22 @@ prompt_tessro_precmd() {
           # Unstaged: Y is not space, or untracked (??)
           [[ $y != ' ' || $x == '?' ]] && has_unstaged=1
         done <<< "$status_lines"
-        (( has_staged )) && git_info+="%F{#afffd7}+%f"
-        (( has_unstaged )) && git_info+="%F{#ffaf5f}*%f"
+        (( has_staged )) && git_info+="%F{158}+%f"
+        (( has_unstaged )) && git_info+="%F{215}*%f"
       fi
     fi
   fi
 
   # Show user@host when connected via SSH (in mauve)
   local remote=""
-  [[ -n $SSH_CLIENT ]] && remote='%F{#d7afff}%n@%m%f '
+  [[ -n $SSH_CLIENT ]] && remote='%F{183}%n@%m%f '
 
   # Path line: soft accent + path
-  path_display="%F{#8787af}in%f ${path_display}"
+  path_display="%F{103}in%f ${path_display}"
 
   # Prompt: teal on success, salmon on error
-  local prompt_char='%F{#afafff}%#%f'
-  (( exit_code != 0 )) && prompt_char='%F{#ffafd7}%#%f'
+  local prompt_char='%F{147}%#%f'
+  (( exit_code != 0 )) && prompt_char='%F{218}%#%f'
 
   PS1="${remote}${path_display}${git_info}
 ${prompt_char} "
