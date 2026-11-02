@@ -27,7 +27,7 @@
 
   home.username = "ubuntu";
   home.homeDirectory = "/home/ubuntu";
-  home.stateVersion = "26.05";
+  home.stateVersion = "26.11";
 
   home.sessionVariables.NH_FLAKE = "/home/ubuntu/repos/config";
 }
