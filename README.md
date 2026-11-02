@@ -65,6 +65,50 @@ casks and Mac App Store apps.
    `nh` builds as your user and calls sudo to apply the result.
    Keep `system.stateVersion` at its initial value when updating inputs.
 
+### Ubuntu (standalone home-manager)
+
+`devbox` is a headless x86_64 Ubuntu machine (user `ubuntu`) that gets Nix and
+home-manager on top of the distro instead of NixOS. It shares the dev tools,
+git, shell and dotfiles, and skips fonts, so it never needs the private input.
+
+1. Install Nix (multi-user):
+
+   ```sh
+   sh <(curl -L https://nixos.org/nix/install) --daemon
+   ```
+
+2. Clone this repo and set up the dotfile path:
+
+   ```sh
+   mkdir -p ~/repos ~/r
+   git clone https://github.com/tessro/config.git ~/repos/config
+   ln -s ~/repos/config ~/r/config
+   cd ~/repos/config
+   ```
+
+3. Apply it. `-b hm-backup` moves aside any files the machine already has
+   (such as a `gh` config) instead of failing:
+
+   ```sh
+   nix --extra-experimental-features 'nix-command flakes' run home-manager/master -- switch --flake .#devbox -b hm-backup
+   ```
+
+4. Optionally make zsh the login shell:
+
+   ```sh
+   command -v zsh | sudo tee -a /etc/shells
+   sudo chsh -s "$(command -v zsh)" ubuntu
+   ```
+
+5. For later changes:
+
+   ```sh
+   nh home switch . -c devbox
+   ```
+
+`/nix` lives on the root disk. If the machine is rebuilt with only `/home`
+kept, reinstall Nix and run step 3 again.
+
 ## License
 
 MIT

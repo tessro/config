@@ -64,9 +64,16 @@ if [[ $OSTYPE == darwin* ]] ; then source ~/.zshrc.darwin ; fi
 if uname -r | grep -q microsoft-standard-WSL2 ; then source ~/.zshrc.wsl2 ; fi
 if [[ -s ~/.zshrc.local ]] ; then source ~/.zshrc.local ; fi
 
-# Nix home-manager
-hm_session_vars=/etc/profiles/per-user/tess/etc/profile.d/hm-session-vars.sh
-if [[ -s $hm_session_vars ]]; then source $hm_session_vars ; fi
+# Non-NixOS Linux: zsh skips /etc/profile.d, where the distro and Nix export
+# their environment.
+if [[ $OSTYPE == linux* && ! -e /etc/NIXOS ]]; then
+  for profile_script in /etc/profile.d/*.sh(N); do emulate sh -c "source $profile_script"; done
+fi
+
+# Nix home-manager (system-managed, then standalone)
+for hm_session_vars in /etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh ~/.nix-profile/etc/profile.d/hm-session-vars.sh; do
+  if [[ -s $hm_session_vars ]]; then source $hm_session_vars ; break ; fi
+done
 
 # Devenv
 eval "$(devenv hook zsh)"
@@ -75,8 +82,11 @@ export AWS_DEFAULT_REGION="us-west-2"
 
 # Disable the use of the Amazon EC2 instance metadata service (IMDS). This
 # eliminates a potential security risk and also speeds up failure of aws
-# commands when no profile is selected.
-export AWS_EC2_METADATA_DISABLED="true"
+# commands when no profile is selected. On EC2 itself IMDS supplies the
+# instance role, so leave it on there.
+if [[ $(cat /sys/class/dmi/id/sys_vendor 2>/dev/null) != "Amazon EC2" ]]; then
+  export AWS_EC2_METADATA_DISABLED="true"
+fi
 
 # Zellij
 alias z="zellij"
