@@ -10,12 +10,10 @@ creation_rules:
       - age:
           - *tess
           - *hearth
-  # Shared across the hosts that need it, so it carries each of their keys.
-  - path_regex: hosts/nemesis/aws-config$
+  - path_regex: hosts/devbox/[^/]+$
     key_groups:
       - age:
           - *tess
-          - *tess-nemesis
           - *tess-devbox
   - path_regex: hosts/nemesis/[^/]+$
     key_groups:
