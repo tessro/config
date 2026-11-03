@@ -90,7 +90,7 @@ git, shell and dotfiles, and skips fonts, so it never needs the private input.
    (such as a `gh` config) instead of failing:
 
    ```sh
-   nix --extra-experimental-features 'nix-command flakes' run home-manager/master -- switch --flake .#devbox -b hm-backup
+   nix --extra-experimental-features 'nix-command flakes' run home-manager/master -- switch --flake .#'ubuntu@devbox-tessrosania' -b hm-backup
    ```
 
 4. Optionally make zsh the login shell:
@@ -100,10 +100,11 @@ git, shell and dotfiles, and skips fonts, so it never needs the private input.
    sudo chsh -s "$(command -v zsh)" ubuntu
    ```
 
-5. For later changes:
+5. For later changes (the attribute is named `ubuntu@devbox-tessrosania`, which
+   is what `nh` derives from `$USER@$(hostname)`, so no `-c` is needed):
 
    ```sh
-   nh home switch . -c devbox
+   nh home switch
    ```
 
 `/nix` lives on the root disk. If the machine is rebuilt with only `/home`

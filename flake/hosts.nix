@@ -93,14 +93,13 @@ in
     };
   };
 
-  # Standalone home-manager for Nix on a non-NixOS Linux host.
-  flake.homeConfigurations = {
-    devbox = inputs.home-manager.lib.homeManagerConfiguration {
-      pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
-      extraSpecialArgs = { inherit inputs; };
-      modules = [
-        ../hosts/devbox.nix
-      ];
-    };
+  # Standalone home-manager for Nix on a non-NixOS Linux host. Named
+  # <user>@<hostname> so a bare `nh home switch` finds it.
+  flake.homeConfigurations."ubuntu@devbox-tessrosania" = inputs.home-manager.lib.homeManagerConfiguration {
+    pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
+    extraSpecialArgs = { inherit inputs; };
+    modules = [
+      ../hosts/devbox.nix
+    ];
   };
 }
