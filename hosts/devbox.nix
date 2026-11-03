@@ -1,9 +1,15 @@
-{ pkgs, ... }:
+{
+  config,
+  inputs,
+  pkgs,
+  ...
+}:
 {
   # Fonts are left out: the box is headless and they need the private input.
   # bubblewrap is left out too: the system bwrap carries the AppArmor profile
   # that unprivileged sandboxes need on Ubuntu, and a Nix one would shadow it.
   imports = [
+    inputs.sops-nix.homeManagerModules.sops
     ../modules/home-manager/devtools.nix
     ../modules/home-manager/dots.nix
     ../modules/home-manager/git.nix
@@ -30,6 +36,16 @@
   home.stateVersion = "26.11";
 
   home.sessionVariables.NH_FLAKE = "/home/ubuntu/repos/config";
+
+  # Cloud credentials, decrypted at activation from the sops-encrypted copy this
+  # machine shares with the other host that uses it. Kept encrypted because the
+  # repo is public.
+  sops.age.keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
+  sops.secrets.aws-config = {
+    sopsFile = ./nemesis/aws-config;
+    format = "binary";
+    path = "${config.home.homeDirectory}/.aws/config";
+  };
 
   # Nix's ncurses only searches its own store terminfo, so entries that live in
   # the distro's database (e.g. xterm-rex, from the Rex terminal) are invisible

@@ -2,6 +2,7 @@ keys:
   - &tess age1kkdp9ptghplyw7rwt50zegj39vgvzy44hld2c7mwrtu4t68t6ulsgsdqpd
   - &hearth age1lemt2q95e95ecfqm6j462ypynu7dqvghhgj5w6rmzsjd82d7lvqslt5ste
   - &tess-nemesis age14w2hnnzkcyskyeqtccw9vucaev5l7vaxx5vwvnx33zc2xhsdtvssgu7gq9
+  - &tess-devbox age14jzdnxd9ujzwevv2sxppxhazkl8pqrs2e6tcnwqcv4mals8mqcsqx0zqp5
 
 creation_rules:
   - path_regex: hosts/hearth/secrets\.yaml$
@@ -9,6 +10,13 @@ creation_rules:
       - age:
           - *tess
           - *hearth
+  # Shared across the hosts that need it, so it carries each of their keys.
+  - path_regex: hosts/nemesis/aws-config$
+    key_groups:
+      - age:
+          - *tess
+          - *tess-nemesis
+          - *tess-devbox
   - path_regex: hosts/nemesis/[^/]+$
     key_groups:
       - age:
