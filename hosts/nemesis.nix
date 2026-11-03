@@ -7,6 +7,8 @@
 
   tess.homebrew.includePersonal = false;
 
+  homebrew.masApps.MeetingBar = 1532419400;
+
   home-manager.users.tess =
     { config, ... }:
     {
