@@ -30,4 +30,12 @@
   home.stateVersion = "26.11";
 
   home.sessionVariables.NH_FLAKE = "/home/ubuntu/repos/config";
+
+  # Nix's ncurses only searches its own store terminfo, so entries that live in
+  # the distro's database (e.g. xterm-rex, from the Rex terminal) are invisible
+  # to nix-built tools like zsh, which then can't find the terminal definition
+  # and drops to no-color. Point ncurses at the system database too; the
+  # trailing empty entry keeps the compiled-in nix store path in the search.
+  home.sessionVariables.TERMINFO_DIRS =
+    "/usr/share/terminfo:/etc/terminfo:/lib/terminfo:";
 }
