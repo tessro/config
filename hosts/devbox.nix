@@ -37,14 +37,22 @@
 
   home.sessionVariables.NH_FLAKE = "/home/ubuntu/repos/config";
 
-  # Cloud config, decrypted at activation. Credentials come from the machine's
-  # instance role, so this only carries the region. Kept encrypted because the
-  # repo is public.
+  # Cloud config, decrypted at activation. The default profile uses the
+  # machine's instance role; `tess` is an SSO profile for work the role can't
+  # do. Kept encrypted because the repo is public.
   sops.age.keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
   sops.secrets.aws-config = {
     sopsFile = ./devbox/aws-config;
     format = "binary";
     path = "${config.home.homeDirectory}/.aws/config";
+  };
+
+  # Machine-local shell config, sourced by the shared zshrc. Encrypted so it
+  # can hold secrets.
+  sops.secrets.zshrc-local = {
+    sopsFile = ./devbox/zshrc.local;
+    format = "binary";
+    path = "${config.home.homeDirectory}/.zshrc.local";
   };
 
   # Nix's ncurses only searches its own store terminfo, so entries that live in

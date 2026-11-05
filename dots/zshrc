@@ -83,14 +83,9 @@ export AWS_DEFAULT_REGION="us-west-2"
 # Disable the use of the Amazon EC2 instance metadata service (IMDS). This
 # eliminates a potential security risk and also speeds up failure of aws
 # commands when no profile is selected. On EC2 itself IMDS supplies the
-# instance role, so leave it on there. The devbox has no browser and keeps
-# the instance role as its default profile, so its SSO login names a profile
-# and uses a device code.
+# instance role, so leave it on there.
 if [[ $(cat /sys/class/dmi/id/sys_vendor 2>/dev/null) != "Amazon EC2" ]]; then
   export AWS_EC2_METADATA_DISABLED="true"
-  alias asl="aws sso login"
-else
-  alias asl="aws sso login --profile tess --use-device-code"
 fi
 
 # Zellij

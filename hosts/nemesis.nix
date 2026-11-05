@@ -29,6 +29,14 @@
         path = "${config.home.homeDirectory}/.aws/config";
       };
 
+      # Machine-local shell config, sourced by the shared zshrc. Encrypted so it
+      # can hold secrets.
+      sops.secrets.zshrc-local = {
+        sopsFile = ./nemesis/zshrc.local;
+        format = "binary";
+        path = "${config.home.homeDirectory}/.zshrc.local";
+      };
+
       # Instinct devbox: SSH tunnelled over SSM. HostName is the instance ID and changes after `devbox down`/`up`.
       programs.ssh.settings.devbox = {
         HostName = "i-0791b9f88a49c9adf";
