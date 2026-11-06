@@ -37,6 +37,12 @@
 
   home.sessionVariables.NH_FLAKE = "/home/ubuntu/repos/config";
 
+  # Depot CLI, installed to ~/.depot/bin by its installer. Expose its install
+  # dir and put it first on PATH (home.sessionPath prepends), matching the
+  # installer's own shell snippet.
+  home.sessionVariables.DEPOT_INSTALL_DIR = "${config.home.homeDirectory}/.depot/bin";
+  home.sessionPath = [ "${config.home.homeDirectory}/.depot/bin" ];
+
   # Cloud config, decrypted at activation. The default profile uses the
   # machine's instance role; `tess` is an SSO profile for work the role can't
   # do. Kept encrypted because the repo is public.
