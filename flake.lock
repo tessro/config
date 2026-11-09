@@ -93,11 +93,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1793979366,
-        "narHash": "sha256-7OoWDsYO9teiPxl0QdlS5lYE20Pue8/5mpscSL32FUA=",
+        "lastModified": 1794252721,
+        "narHash": "sha256-sD1rhEjMghSyWSUG2xEOw+FOVd2wnoWwi/809w8fRkI=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "2c0c1f01521469cf0271180c453c79782d53c2f6",
+        "rev": "f1db7c474bb49babfe9d8def532939e0c7404327",
         "type": "github"
       },
       "original": {
@@ -113,11 +113,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1792818383,
-        "narHash": "sha256-199i7ubVSXTMl+0AAlL7cVCXSjcI+jWByMcimYjeMX0=",
+        "lastModified": 1794251182,
+        "narHash": "sha256-R2sZBXiOJo3HAnvTiVkbbHDJy//JMlAwUKEiPbfqPXk=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "24f2190587513b9c2f73db112a17844ae912d965",
+        "rev": "6eb2d33d1d0c95a37ef6443c88e6c1686012ee8b",
         "type": "github"
       },
       "original": {
@@ -130,11 +130,11 @@
     "homebrew-cask": {
       "flake": false,
       "locked": {
-        "lastModified": 1794155276,
-        "narHash": "sha256-Yn6dIDFAwffjWnmrmUdQKvU6V1PTqEIE4EYmYxhwbcU=",
+        "lastModified": 1794254332,
+        "narHash": "sha256-tRpTXa14cY5YGM2DZtRmRkpWRLYjxtTdEijkQE6+pm4=",
         "owner": "homebrew",
         "repo": "homebrew-cask",
-        "rev": "ba8d58871d1e7df1a09a325c18653c726c9d3d42",
+        "rev": "637557b0e9758718e25e03786151e4d977c7e639",
         "type": "github"
       },
       "original": {
@@ -314,10 +314,10 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1794111130,
-        "narHash": "sha256-ZUIhnzNpmuEheybfzs9fFiLkicGWAqZVbTNSBxvLdZc=",
+        "lastModified": 1794256482,
+        "narHash": "sha256-4wDGZLBcBgs4IpSbGtyySOsHQ5/9mdGy8+JdjBRyLqs=",
         "type": "tarball",
-        "url": "https://pkgs.superlogical.com/rex/nix/snapshot/0.0.1794111130-g9bcf6a.tar.gz"
+        "url": "https://pkgs.superlogical.com/rex/nix/snapshot/0.0.1794256482-ge8ca3f.tar.gz"
       },
       "original": {
         "type": "tarball",
