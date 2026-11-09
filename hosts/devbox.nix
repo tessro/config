@@ -37,6 +37,10 @@
 
   home.sessionVariables.NH_FLAKE = "/home/ubuntu/repos/config";
 
+  # Full store path because sudo swaps PATH for secure_path, which has no Nix
+  # profile; sudoers env_keep passes SUDO_EDITOR through.
+  home.sessionVariables.SUDO_EDITOR = "${pkgs.neovim}/bin/nvim";
+
   # Depot CLI, installed to ~/.depot/bin by its installer. Expose its install
   # dir and put it first on PATH (home.sessionPath prepends), matching the
   # installer's own shell snippet.
