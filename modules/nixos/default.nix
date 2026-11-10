@@ -18,6 +18,10 @@
 
   programs.nix-ld.enable = true;
 
+  home-manager.users.tess.home.packages = [
+    (pkgs.writeShellScriptBin "ns" ''exec nh os switch "$@"'')
+  ];
+
   users.users.tess = {
     isNormalUser = true;
     shell = pkgs.zsh;

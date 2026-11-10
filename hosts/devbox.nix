@@ -29,7 +29,10 @@
     "flakes"
   ];
 
-  home.packages = [ pkgs.socat ];
+  home.packages = [
+    pkgs.socat
+    (pkgs.writeShellScriptBin "ns" ''exec nh home switch "$@"'')
+  ];
 
   home.username = "ubuntu";
   home.homeDirectory = "/home/ubuntu";
