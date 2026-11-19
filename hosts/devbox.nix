@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  lib,
   pkgs,
   ...
 }:
@@ -29,8 +30,12 @@
     "flakes"
   ];
 
+  # Terraform is BSL-licensed, so nixpkgs marks it unfree.
+  nixpkgs.config.allowUnfreePredicate = pkg: lib.getName pkg == "terraform";
+
   home.packages = [
     pkgs.socat
+    pkgs.terraform
     (pkgs.writeShellScriptBin "ns" ''exec nh home switch "$@"'')
   ];
 
